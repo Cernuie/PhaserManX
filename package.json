@@ -2,7 +2,7 @@
   "name": "2021-04-30-action-game",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Monarch Wadia <monarch@mintbean.io>",
+  "author": "Alexander Nguyen",
   "license": "MIT",
   "scripts": {
     "start": "parcel serve index.html"
