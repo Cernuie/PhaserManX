@@ -1,0 +1,16 @@
+{
+  "name": "2021-04-30-action-game",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Monarch Wadia <monarch@mintbean.io>",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel serve index.html"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  },
+  "dependencies": {
+    "phaser": "^3.54.0"
+  }
+}
