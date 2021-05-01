@@ -16,6 +16,8 @@ class MegaMan extends Phaser.GameObjects.Sprite {
   }
 }
 
+
+
 Phaser.GameObjects.GameObjectFactory.register("megaMan", function (...args) {
   const megaMan = new MegaMan(this.scene, ...args);
 
