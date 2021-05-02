@@ -33,7 +33,7 @@ module.exports = function create() {
 
     // scale test for camera
     let megaMan = this.add.megaMan(100, 800, "megamanxsprite1"); 
-    megaMan.displayWidth = cameraWidth * .1; //determines player's relative size
+    megaMan.displayWidth = cameraWidth * .07; //determines player's relative size
     megaMan.scaleY = megaMan.scaleX;
     megaMan.play('idle');
 
@@ -41,10 +41,9 @@ module.exports = function create() {
     world.player = this.physics.add.existing(player);
 
     // tilemap
-    this.add.image(width/2,height/2,'graphics'); // temporary fix to show visuals
-    var map = this.make.tilemap({ key: 'level1' });
-    var tileset = map.addTilesetImage('level_tiles', 'tiles'); // isn't generating visuals like i want it to
-    var platforms = map.createLayer(0, 'tiles')
+    var map = this.make.tilemap({ key: 'level1' }); // calls from tilemap JSON
+    var tileset = map.addTilesetImage('level_tiles', 'tiles'); // connects Tiled tileset to image source
+    var platforms = map.createStaticLayer(0, tileset) // param1: layerID; param2: tileset source
     map.setCollision([ 15 ]); // 15 is the tile ID code for the platform i used
     this.physics.add.collider(player, platforms);
 
