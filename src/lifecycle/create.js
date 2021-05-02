@@ -3,6 +3,39 @@ const { width, height } = require("../constants");
 
 module.exports = function create() {
 
+    //taken from https://labs.phaser.io/edit.html?src=src%5Cloader%5Ctexture%20atlas%20json%5Cload%20texture%20atlas.js
+    //this isn't useful code, but i pasted it in as is just to see if i could get anything to work.
+    //supposed to just place frames in random locations around the screen.
+    // var atlasTexture = this.textures.get('spawn');
+
+    // var frames = atlasTexture.getFrameNames();
+
+    // for (var i = 0; i < frames.length; i++)
+    // {
+    //     var x = Phaser.Math.Between(0, 800);
+    //     var y = Phaser.Math.Between(0, 600);
+
+    //     this.add.image(x, y, 'spawn', frames[i]);
+    // }
+
+    //taken from https://www.thepolyglotdeveloper.com/2020/08/animate-compressed-sprite-atlas-phaser-game/
+    //should play through the frames on loop
+    this.anims.create({
+      key: "landing",
+      frameRate: 7,
+      frames: this.anims.generateFrameNames('spawnIn', {
+          prefix: 'spawn',
+          suffix: '.png',
+          start: 0,
+          end: 7,
+          zeroPad: 1
+      }),
+      repeat: -1
+    });
+
+    mmxSpawn = this.add.sprite(400, 300, 'spawnIn');
+    mmxSpawn.play("landing")
+
     var config = {
         key: 'idle',
         frames: this.anims.generateFrameNumbers('megamanxsprite1', {start: 5, end: 5}),
