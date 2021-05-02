@@ -1,5 +1,8 @@
 import megamanxsprite1 from '/assets/sprites/megamanxatlas.png';
 import background from '/assets/background test.png';
+import level1 from '/assets/level/tiled map test.json';
+import levelimg from '/assets/level/tiled map test.png';
+import tiles from '/assets/level/Request pack/sheet.png';
 
 module.exports = function preload() {
 
@@ -9,5 +12,9 @@ module.exports = function preload() {
     });
 
     //background image
-    this.load.image('bg', background);
+    // this.load.image('bg', background);
+
+    this.load.image('tiles', tiles);
+    this.load.image('graphics', levelimg)
+    this.load.tilemapTiledJSON('level1', level1);
 };

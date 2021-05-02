@@ -5,7 +5,7 @@ const { Cameras } = require("phaser");
 module.exports = function create() {
 
     // adds background image
-    this.add.image(960, 540, 'bg');
+    // this.add.image(960, 540, 'bg');
 
     var config = {
         key: 'idle',
@@ -32,7 +32,7 @@ module.exports = function create() {
     // megaMan.play('idle');
 
     // scale test for camera
-    let megaMan = this.add.megaMan(100, 100, "megamanxsprite1"); 
+    let megaMan = this.add.megaMan(100, 800, "megamanxsprite1"); 
     megaMan.displayWidth = cameraWidth * .1; //determines player's relative size
     megaMan.scaleY = megaMan.scaleX;
     megaMan.play('idle');
@@ -40,9 +40,17 @@ module.exports = function create() {
     const player = megaMan
     world.player = this.physics.add.existing(player);
 
+    // tilemap
+    this.add.image(width/2,height/2,'graphics'); // temporary fix to show visuals
+    var map = this.make.tilemap({ key: 'level1' });
+    var tileset = map.addTilesetImage('level_tiles', 'tiles'); // isn't generating visuals like i want it to
+    var platforms = map.createLayer(0, 'tiles')
+    map.setCollision([ 15 ]); // 15 is the tile ID code for the platform i used
+    this.physics.add.collider(player, platforms);
+
     // camera settings
     this.cameras.main.setBounds(0, 0, width, height); //set bounds to the size of the game map
-    this.cameras.main.startFollow(world.player, true); //not sure why it works w/ world.player, this.player seemed to break it
+    this.cameras.main.startFollow(player, true); //camera follows player
     //this.cameras.main.setZoom(1.5);
 
     // set walls
