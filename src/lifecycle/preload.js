@@ -7,5 +7,6 @@ module.exports = function preload() {
     //     frameHeight: 64
     // });
 
+    //test atlas made with 8 frames from the spawn in animation
     this.load.atlas('spawnIn', '/assets/sprites/mmxspawn.png', '/assets/sprites/mmxspawn.json')
 };
