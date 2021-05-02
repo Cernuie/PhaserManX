@@ -23,7 +23,7 @@ module.exports = function update() {
             } else {
                 player.body.velocity.x = dashingSpeed;
             }
-            this.time.addEvent({ delay: 500, callback: function() {isDashing = false;} , callbackScope: this, loop: false });
+            this.time.addEvent({ delay: 0, callback: function() {isDashing = false;} , callbackScope: this, loop: false });
         }
     }
 
