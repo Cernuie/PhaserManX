@@ -18,6 +18,7 @@ var config = {
       create,
       update,
     },
+    pixelArt: true,
     physics: {
       default: "arcade",
       arcade: {
