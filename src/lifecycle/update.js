@@ -15,6 +15,7 @@ module.exports = function update() {
     //crappy left-right movement on key up/down
     //order matters here, if isUp is after isDown it doesn't work
 
+    // animate the starting beam landing
     if (player.body.onFloor() && player.anims.currentAnim.key === 'warping_in'){
         player.play('landing').on('animationcomplete', () => 
         {
@@ -22,19 +23,20 @@ module.exports = function update() {
         });
     }
 
-    if (this.keys.dash.isDown) {
-        isDashing = true;
+    if (player.IsDashing) {
         if (player.flipX){
-            player.body.velocity.x = -dashingSpeed;
+            player.body.velocity.x = -650;
         } else {
-            player.body.velocity.x = dashingSpeed;
+            player.body.velocity.x = 650;
         }
     }
-    if (this.keys.dash.isUp) {
-        isDashing = false;
+
+    if (player.body.onFloor() && player.IsJumpDashing){
+        player.IsDashing = false;
+        player.IsJumpDashing = false;
     }
 
-    if (!isDashing){
+    if (!player.IsDashing){
         if (left.isUp) {
             player.body.velocity.x = 0;
         }
@@ -49,34 +51,17 @@ module.exports = function update() {
     }
 
     if (left.isDown) {
-        if (!isDashing) {
-            player.body.velocity.x = -walkingSpeed;
-            if (player.anims.currentAnim.key !== 'run' && player.body.onFloor())
-                player.play('run');
-        }
-        player.flipX = true;
+        player.run(true);
     }
 
     if (right.isDown) {
-        if (!isDashing) {
-            player.body.velocity.x = walkingSpeed;
-            if (player.anims.currentAnim.key !== 'run' && player.body.onFloor())
-                player.play('run');
-        }
-        player.flipX = false;
+        player.run(false);
     }
 
     if (this.keys.jump.isDown || this.keys.jump2.isDown) {
-        if (player.body.onFloor() && jumpTimer === 0) {
-            player.play('jump');
-            jumpTimer += jumpTimerIncrement;
-            player.body.setVelocityY(-200 - (jumpTimer))
-        } else if (jumpTimer > 0 && jumpTimer < 400) {
-            jumpTimer += jumpTimerIncrement;
-            player.body.setVelocityY(-200 - (jumpTimer))
-        }
+        player.jump();
     }
     else {
-        jumpTimer = 0;
+        player.JumpTimer = 0;
     }
 };
