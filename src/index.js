@@ -7,12 +7,13 @@ const update = require("./lifecycle/update");
 require("./objects/MegaMan.js");
 
 // constants
-const { width, height } = require("./constants");
+const { width, height, cameraWidth, cameraHeight } = require("./constants");
 
 var config = {
     type: Phaser.AUTO,
-    width,
-    height,
+    //screen boundaries
+    width: cameraWidth,
+    height: cameraHeight,
     scene: {
       preload,
       create,

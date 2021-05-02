@@ -1,7 +1,11 @@
 const world = require("../world");
-const { width, height } = require("../constants");
+const { width, height, cameraWidth, cameraHeight } = require("../constants");
+const { Cameras } = require("phaser");
 
 module.exports = function create() {
+
+    // adds background image
+    this.add.image(960, 540, 'bg');
 
     // At some point we should probably put these animations in their own file or function or something
 
@@ -56,8 +60,9 @@ module.exports = function create() {
         down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
     };
 
-    let megaMan = this.add.megaMan(width/2, height/2, "megamanxsprite1");
-    megaMan.displayWidth = width*.1;
+    // scale test for camera
+    let megaMan = this.add.megaMan(100, 100, "megamanxsprite1"); 
+    megaMan.displayWidth = cameraWidth * .1; //determines player's relative size
     megaMan.scaleY = megaMan.scaleX;
     megaMan.play('idle');
 
@@ -65,11 +70,17 @@ module.exports = function create() {
     world.player = this.physics.add.existing(player);
     world.player.play('warping_in');
 
+    // camera settings
+    this.cameras.main.setBounds(0, 0, width, height); //set bounds to the size of the game map
+    this.cameras.main.startFollow(world.player, true); //not sure why it works w/ world.player, this.player seemed to break it
+    //this.cameras.main.setZoom(1.5);
+
     // set walls
     this.physics.world.setBounds(0, 0, width, height);
 
+    // airdash event attempt - needs to have set length and immune to gravity (or velocity.y = 0?) for the duration
     // this.input.keyboard.on('keydown-C', function (event) {
-    //     if (player.body.onFloor()) {
+    //     if (!player.body.onFloor()) {
     //         player.isDashing = true;
     //         if (player.flipX){
     //             player.body.velocity.x = -650;
