@@ -41,7 +41,7 @@ module.exports = function create() {
     world.player = this.physics.add.existing(player);
 
     // camera settings
-    this.cameras.main.setBounds(0,0,1920,1080); //set bounds to the size of the game map
+    this.cameras.main.setBounds(0, 0, width, height); //set bounds to the size of the game map
     this.cameras.main.startFollow(world.player, true); //not sure why it works w/ world.player, this.player seemed to break it
     //this.cameras.main.setZoom(1.5);
 
