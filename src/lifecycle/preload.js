@@ -1,4 +1,6 @@
 import megamanxsprite1 from '/assets/sprites/megamanxatlas.png';
+import mmxspawn from '/assets/sprites/megamanxatlas.png';
+import mmxspawnJSON from '/assets/sprites/mmxspawn.json';
 
 module.exports = function preload() {
 
@@ -8,5 +10,5 @@ module.exports = function preload() {
     // });
 
     //test atlas made with 8 frames from the spawn in animation
-    this.load.atlas('spawnIn', '/assets/sprites/mmxspawn.png', '/assets/sprites/mmxspawn.json')
+    this.load.atlas('spawnIn', mmxspawn, mmxspawnJSON)
 };
