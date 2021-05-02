@@ -1,4 +1,5 @@
 import megamanxsprite1 from '/assets/sprites/megamanxatlas.png';
+import background from '/assets/background test.png';
 
 module.exports = function preload() {
 
@@ -6,4 +7,7 @@ module.exports = function preload() {
         frameWidth: 32,
         frameHeight: 64
     });
+
+    //background image
+    this.load.image('bg', background);
 };

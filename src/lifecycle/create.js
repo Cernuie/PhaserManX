@@ -1,7 +1,11 @@
 const world = require("../world");
 const { width, height } = require("../constants");
+const { Cameras } = require("phaser");
 
 module.exports = function create() {
+
+    // adds background image
+    this.add.image(960, 540, 'bg');
 
     var config = {
         key: 'idle',
@@ -22,13 +26,24 @@ module.exports = function create() {
 
     this.anims.create(config);
 
-    let megaMan = this.add.megaMan(width/2, height/2, "megamanxsprite1");
+    // let megaMan = this.add.megaMan(width/2, height/2, "megamanxsprite1");
+    // megaMan.displayWidth = width*.1;
+    // megaMan.scaleY = megaMan.scaleX;
+    // megaMan.play('idle');
+
+    // scale test for camera
+    let megaMan = this.add.megaMan(90, 160, "megamanxsprite1");
     megaMan.displayWidth = width*.1;
     megaMan.scaleY = megaMan.scaleX;
     megaMan.play('idle');
 
     const player = megaMan
     world.player = this.physics.add.existing(player);
+
+    // camera settings
+    this.cameras.main.setBounds(0,0,1920,1080); //set bounds to the size of the game map
+    this.cameras.main.startFollow(world.player, true); //not sure why it works w/ world.player, this.player seemed to break it
+    //this.cameras.main.setZoom(1.5);
 
     // set walls
     this.physics.world.setBounds(0, 0, width, height);
