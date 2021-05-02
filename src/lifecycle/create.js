@@ -1,5 +1,5 @@
 const world = require("../world");
-const { width, height } = require("../constants");
+const { width, height, cameraWidth, cameraHeight } = require("../constants");
 const { Cameras } = require("phaser");
 
 module.exports = function create() {
@@ -32,8 +32,8 @@ module.exports = function create() {
     // megaMan.play('idle');
 
     // scale test for camera
-    let megaMan = this.add.megaMan(90, 160, "megamanxsprite1");
-    megaMan.displayWidth = width*.1;
+    let megaMan = this.add.megaMan(100, 100, "megamanxsprite1"); 
+    megaMan.displayWidth = cameraWidth * .1; //determines player's relative size
     megaMan.scaleY = megaMan.scaleX;
     megaMan.play('idle');
 
@@ -48,8 +48,9 @@ module.exports = function create() {
     // set walls
     this.physics.world.setBounds(0, 0, width, height);
 
+    // airdash event attempt - needs to have set length and immune to gravity (or velocity.y = 0?) for the duration
     // this.input.keyboard.on('keydown-C', function (event) {
-    //     if (player.body.onFloor()) {
+    //     if (!player.body.onFloor()) {
     //         player.isDashing = true;
     //         if (player.flipX){
     //             player.body.velocity.x = -650;
