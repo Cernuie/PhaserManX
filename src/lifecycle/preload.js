@@ -1,14 +1,14 @@
 import megamanxsprite1 from '/assets/sprites/megamanxatlas.png';
-import mmxspawn from '/assets/sprites/megamanxatlas.png';
-import mmxspawnJSON from '/assets/sprites/mmxspawn.json';
+import megaman from '/assets/sprites/megaman.png';
+import megamanJSON from '/assets/sprites/megaman.json';
 
 module.exports = function preload() {
 
-    // this.load.spritesheet('megamanxsprite1', megamanxsprite1, {
-    //     frameWidth: 32,
-    //     frameHeight: 64
-    // });
+    this.load.spritesheet('megamanxsprite1', megamanxsprite1, {
+        frameWidth: 32,
+        frameHeight: 64
+    });
 
     //test atlas made with 8 frames from the spawn in animation
-    this.load.atlas('spawnIn', mmxspawn, mmxspawnJSON)
+    this.load.atlas('megaman', megaman, megamanJSON)
 };
