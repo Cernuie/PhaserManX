@@ -15,6 +15,13 @@ module.exports = function update() {
     //crappy left-right movement on key up/down
     //order matters here, if isUp is after isDown it doesn't work
 
+    if (player.body.onFloor() && player.anims.currentAnim.key === 'warping_in'){
+        player.play('landing').on('animationcomplete', () => 
+        {
+            player.play("idle");
+        });
+    }
+
     if (this.keys.dash.isDown) {
         isDashing = true;
         if (player.flipX){

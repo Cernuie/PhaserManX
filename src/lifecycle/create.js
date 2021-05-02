@@ -7,12 +7,47 @@ module.exports = function create() {
     // adds background image
     this.add.image(960, 540, 'bg');
 
-    var config = {
-        key: 'idle',
-        frames: this.anims.generateFrameNumbers('megamanxsprite1', {start: 5, end: 5}),
+    // creates various animations for megaman
+    this.anims.create({
+        key: 'warping_in',
+        frames: this.anims.generateFrameNames('megaman', {
+            prefix: 'spawn',
+            suffix: '.png',
+            start: 0,
+            end: 0,
+            zeroPad: 1
+        }),
         frameRate: 20,
-        repeat: -1
-    };
+        repeat: 0
+    });
+
+    this.anims.create({
+        key: 'landing',
+        frames: this.anims.generateFrameNames('megaman', {
+            prefix: 'spawn',
+            suffix: '.png',
+            start: 0,
+            end: 6,
+            zeroPad: 1
+        }),
+        frameRate: 20,
+        repeat: 0
+    });
+
+    this.anims.create({
+        key: 'idle',
+        frames: this.anims.generateFrameNames('megaman', {
+            prefix: 'idle',
+            suffix: '.png',
+            start: 0,
+            end: 2,
+            zeroPad: 1
+        }),
+        frameRate: 20,
+        repeat: -1,
+        repeatDelay: 2000,
+        yoyo: true
+    });
 
     this.keys = {
         jump: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP),
@@ -24,21 +59,15 @@ module.exports = function create() {
         down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
     };
 
-    this.anims.create(config);
-
-    // let megaMan = this.add.megaMan(width/2, height/2, "megamanxsprite1");
-    // megaMan.displayWidth = width*.1;
-    // megaMan.scaleY = megaMan.scaleX;
-    // megaMan.play('idle');
-
     // scale test for camera
-    let megaMan = this.add.megaMan(100, 100, "megamanxsprite1"); 
-    megaMan.displayWidth = cameraWidth * .1; //determines player's relative size
+    let megaMan = this.add.megaMan(100, 100, "megaman"); 
+    megaMan.displayWidth = cameraWidth * .5; //determines player's relative size
     megaMan.scaleY = megaMan.scaleX;
     megaMan.play('idle');
 
     const player = megaMan
     world.player = this.physics.add.existing(player);
+    world.player.play('warping_in');
 
     // camera settings
     this.cameras.main.setBounds(0, 0, width, height); //set bounds to the size of the game map
