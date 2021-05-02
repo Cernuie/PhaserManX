@@ -1,7 +1,7 @@
 module.exports = {
   // game boundaries
-  width: 1920,
-  height: 1080,
+  width: 2100,
+  height: 1400,
   cameraWidth: 800,
   cameraHeight: 600,
 };

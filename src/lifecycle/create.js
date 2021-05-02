@@ -5,7 +5,7 @@ const { Cameras } = require("phaser");
 module.exports = function create() {
 
     // adds background image
-    this.add.image(960, 540, 'bg');
+    // this.add.image(960, 540, 'bg');
 
     // creates various animations for megaman
     this.anims.create({
@@ -121,9 +121,16 @@ module.exports = function create() {
     world.player = this.physics.add.existing(player);
     world.player.play('warping_in');
 
+    // tilemap
+    var map = this.make.tilemap({ key: 'level1' }); // calls from tilemap JSON
+    var tileset = map.addTilesetImage('level_tiles', 'tiles'); // connects Tiled tileset to image source
+    var platforms = map.createStaticLayer(0, tileset) // param1: layerID; param2: tileset source
+    map.setCollision([ 15 ]); // 15 is the tile ID code for the platform i used
+    this.physics.add.collider(player, platforms);
+
     // camera settings
     this.cameras.main.setBounds(0, 0, width, height); //set bounds to the size of the game map
-    this.cameras.main.startFollow(world.player, true); //not sure why it works w/ world.player, this.player seemed to break it
+    this.cameras.main.startFollow(player, true); //camera follows player
     //this.cameras.main.setZoom(1.5);
 
     // set walls
