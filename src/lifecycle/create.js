@@ -49,6 +49,32 @@ module.exports = function create() {
         yoyo: true
     });
 
+    this.anims.create({
+        key: 'run',
+        frames: this.anims.generateFrameNames('megaman', {
+            prefix: 'run',
+            suffix: '.png',
+            start: 0,
+            end: 10,
+            zeroPad: 1
+        }),
+        frameRate: 20,
+        repeat: -1
+    });
+
+    this.anims.create({
+        key: 'jump',
+        frames: this.anims.generateFrameNames('megaman', {
+            prefix: 'frame',
+            suffix: '.png',
+            start: 73,
+            end: 73,
+            zeroPad: 1
+        }),
+        frameRate: 20,
+        repeat: -1
+    });
+
     this.keys = {
         jump: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP),
         jump2: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X),

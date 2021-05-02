@@ -1,5 +1,5 @@
-const world = require("../world");
-const Phaser = require("Phaser");
+const world = require('../world');
+const Phaser = require('Phaser');
 const walkingSpeed = 250;
 const dashingSpeed = 650;
 const jumpTimerIncrement = 50;
@@ -18,7 +18,7 @@ module.exports = function update() {
     if (player.body.onFloor() && player.anims.currentAnim.key === 'warping_in'){
         player.play('landing').on('animationcomplete', () => 
         {
-            player.play("idle");
+            player.play('idle');
         });
     }
 
@@ -42,11 +42,17 @@ module.exports = function update() {
         if (right.isUp) {
             player.body.velocity.x = 0;
         }
+
+        if (left.isUp && right.isUp && player.body.onFloor() && player.anims.currentAnim.key !== 'idle') {
+            player.play('idle');
+        }
     }
 
     if (left.isDown) {
         if (!isDashing) {
             player.body.velocity.x = -walkingSpeed;
+            if (player.anims.currentAnim.key !== 'run' && player.body.onFloor())
+                player.play('run');
         }
         player.flipX = true;
     }
@@ -54,12 +60,15 @@ module.exports = function update() {
     if (right.isDown) {
         if (!isDashing) {
             player.body.velocity.x = walkingSpeed;
+            if (player.anims.currentAnim.key !== 'run' && player.body.onFloor())
+                player.play('run');
         }
         player.flipX = false;
     }
 
     if (this.keys.jump.isDown || this.keys.jump2.isDown) {
         if (player.body.onFloor() && jumpTimer === 0) {
+            player.play('jump');
             jumpTimer += jumpTimerIncrement;
             player.body.setVelocityY(-200 - (jumpTimer))
         } else if (jumpTimer > 0 && jumpTimer < 400) {
