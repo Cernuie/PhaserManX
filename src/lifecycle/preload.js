@@ -10,7 +10,7 @@ module.exports = function preload() {
         frameHeight: 64
     });
 
-    //test atlas made with 8 frames from the spawn in animation
+    //load in the megaman animation atlas
     this.load.atlas('megaman', megaman, megamanJSON)
 
     //background image

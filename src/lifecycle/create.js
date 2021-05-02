@@ -7,8 +7,7 @@ module.exports = function create() {
     // adds background image
     this.add.image(960, 540, 'bg');
 
-    // At some point we should probably put these animations in their own file or function or something
-
+    // creates various animations for megaman
     this.anims.create({
         key: 'warping_in',
         frames: this.anims.generateFrameNames('megaman', {
@@ -61,7 +60,7 @@ module.exports = function create() {
     };
 
     // scale test for camera
-    let megaMan = this.add.megaMan(100, 100, "megamanxsprite1"); 
+    let megaMan = this.add.megaMan(100, 100, "megaman"); 
     megaMan.displayWidth = cameraWidth * .1; //determines player's relative size
     megaMan.scaleY = megaMan.scaleX;
     megaMan.play('idle');
