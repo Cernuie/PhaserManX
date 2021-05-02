@@ -16,15 +16,15 @@ module.exports = function update() {
     //order matters here, if isUp is after isDown it doesn't work
 
     if (this.keys.dash.isDown) {
-        if (!isDashing && player.body.onFloor()) {
-            isDashing = true;
-            if (player.flipX){
-                player.body.velocity.x = -dashingSpeed;
-            } else {
-                player.body.velocity.x = dashingSpeed;
-            }
-            this.time.addEvent({ delay: 0, callback: function() {isDashing = false;} , callbackScope: this, loop: false });
+        isDashing = true;
+        if (player.flipX){
+            player.body.velocity.x = -dashingSpeed;
+        } else {
+            player.body.velocity.x = dashingSpeed;
         }
+    }
+    if (this.keys.dash.isUp) {
+        isDashing = false;
     }
 
     if (!isDashing){
