@@ -61,7 +61,7 @@ module.exports = function create() {
 
     // scale test for camera
     let megaMan = this.add.megaMan(100, 100, "megaman"); 
-    megaMan.displayWidth = cameraWidth * .1; //determines player's relative size
+    megaMan.displayWidth = cameraWidth * .5; //determines player's relative size
     megaMan.scaleY = megaMan.scaleX;
     megaMan.play('idle');
 
