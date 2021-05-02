@@ -75,6 +75,32 @@ module.exports = function create() {
         repeat: -1
     });
 
+    this.anims.create({
+        key: 'dash_start',
+        frames: this.anims.generateFrameNames('megaman', {
+            prefix: 'dash',
+            suffix: '.png',
+            start: 0,
+            end: 1,
+            zeroPad: 1
+        }),
+        frameRate: 20,
+        repeat: 0
+    });
+
+    this.anims.create({
+        key: 'dash',
+        frames: this.anims.generateFrameNames('megaman', {
+            prefix: 'dash',
+            suffix: '.png',
+            start: 1,
+            end: 1,
+            zeroPad: 1
+        }),
+        frameRate: 20,
+        repeat: -1
+    });
+
     this.keys = {
         jump: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP),
         jump2: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X),
@@ -103,15 +129,22 @@ module.exports = function create() {
     // set walls
     this.physics.world.setBounds(0, 0, width, height);
 
-    // airdash event attempt - needs to have set length and immune to gravity (or velocity.y = 0?) for the duration
-    // this.input.keyboard.on('keydown-C', function (event) {
-    //     if (!player.body.onFloor()) {
-    //         player.isDashing = true;
-    //         if (player.flipX){
-    //             player.body.velocity.x = -650;
-    //         } else {
-    //             player.body.velocity.x = 650;
-    //         }
-    //     }
-    // });
+    //airdash event attempt - needs to have set length and immune to gravity (or velocity.y = 0?) for the duration
+    this.input.keyboard.on('keydown-C', function (event) {
+        if (player.body.onFloor()) {     
+            player.dash();
+            if (player.anims.currentAnim.key !== 'dash' && player.anims.currentAnim.key !== 'dash_start'){
+                player.play('dash_start').on('animationcomplete', () => 
+                {
+                    player.play('dash');
+                });
+            }
+        }
+    });
+
+    this.input.keyboard.on('keyup-C', function (event) {
+        if (player.body.onFloor()) {
+            player.stopDashing();
+        }
+    });
 };
