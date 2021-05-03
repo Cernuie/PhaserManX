@@ -12,7 +12,7 @@ class MegaMan extends Phaser.GameObjects.Sprite {
 
     JumpTimer = 0;
     IsDashing = false;
-
+    isFiring = false;
     // For some reason, Phaser needs this empty method.
     preUpdate(time, delta) {
         super.preUpdate(time, delta);
@@ -56,6 +56,18 @@ class MegaMan extends Phaser.GameObjects.Sprite {
 
     stopDashing() {
         this.IsDashing = false;
+    }
+
+    // shoot() {
+    //   const bullet = this.scene.add.bullet(this);
+    // }
+
+    fire() {
+      this.IsFiring = true;
+    }
+
+    stopFiring() {
+      this.IsFiring = false;
     }
 }
 

@@ -4,13 +4,13 @@ class Bullet extends Phaser.GameObjects.Ellipse {
   constructor(scene, ...args ) {
     super(scene, x, y, 'bullet');
     this.initialized = false;
-    this.setActive(true);
-    this.setVisible(true);
+    // this.setActive(true);
+    // this.setVisible(true);
     
   }
 
   preUpdate() {
-    super.preUpdate(time, delta)
+    //super.preUpdate(time, delta)
     this.body.collideWorldBounds = false;
     this.initialized = true;
   }

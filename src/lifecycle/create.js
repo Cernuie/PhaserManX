@@ -104,6 +104,19 @@ module.exports = function create() {
         repeat: -1
     });
 
+    this.anims.create({
+        key: 'fire',
+        frames: this.anims.generateFrameNames('megaman', {
+            prefix: 'frame',
+            suffix: '.png', 
+            start: 11,
+            end: 11,
+            zeroPad: 1
+        }),
+        frameRate: 20,
+        repeat: 0
+    })
+
     this.keys = {
         jump: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP),
         jump2: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X),
@@ -161,4 +174,17 @@ module.exports = function create() {
             player.stopDashing();
         }
     });
+
+    //create the bullet 
+    //bullet = this.add.Bullet(5, 5, "bullet");
+    //animation for fire bullet
+    //add context for firing in air/ground later
+    this.input.keyboard.on('keydown-Z', function(event) {
+        player.fire();
+        
+    })
+
+    this.input.keyboard.on('keyup-Z', function(event) {
+        player.stopFiring();
+    })
 };

@@ -7,8 +7,6 @@ module.exports = function update() {
 
     const { left, right} = cursors;
     const { player } = world;
-    //crappy left-right movement on key up/down
-    //order matters here, if isUp is after isDown it doesn't work
 
     // animate the starting beam landing
     if (player.body.onFloor() && player.anims.currentAnim.key === 'warping_in'){
@@ -17,6 +15,12 @@ module.exports = function update() {
             player.play('idle');
         });
     }
+
+    if (this.keys.fire.isDown) {
+      console.log("shot");
+      player.play('fire');
+    }
+
 
     if (player.IsDashing) {
         if (player.flipX){
@@ -40,7 +44,7 @@ module.exports = function update() {
             player.body.velocity.x = 0;
         }
 
-        if (left.isUp && right.isUp && player.body.onFloor() && player.anims.currentAnim.key !== 'idle') {
+        if (left.isUp && right.isUp &&  player.body.onFloor() && player.anims.currentAnim.key !== 'idle') {
             player.play('idle');
         }
     }
@@ -60,7 +64,4 @@ module.exports = function update() {
         player.JumpTimer = 0;
     }
 
-    if (this.keys.jump.isDown) {
-      
-    }
 };
