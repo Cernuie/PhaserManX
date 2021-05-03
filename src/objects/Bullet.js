@@ -2,7 +2,26 @@ const Phaser = require("phaser");
 
 class Bullet extends Phaser.GameObjects.Ellipse {
   constructor(scene, ...args ) {
-    super(scene, player.x, player.y, 5, 5, 0x00ff00);
+    super(scene, x, y, 'bullet');
     this.initialized = false;
+    this.setActive(true);
+    this.setVisible(true);
+    
   }
+
+  preUpdate() {
+    super.preUpdate(time, delta)
+    this.body.collideWorldBounds = false;
+    this.initialized = true;
+  }
+
 }
+
+Phaser.GameObjects.GameObjectFactory.register("bullet", function (...args) {
+  const bullet = new Bullet(this.scene, ...args);
+
+  this.displayList.add(bullet);
+  this.updateList.add(bullet);
+
+  return bullet;
+});
