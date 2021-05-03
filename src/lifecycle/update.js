@@ -59,4 +59,8 @@ module.exports = function update() {
     else {
         player.JumpTimer = 0;
     }
+
+    if (this.keys.jump.isDown) {
+      
+    }
 };
