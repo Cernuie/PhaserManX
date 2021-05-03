@@ -112,7 +112,7 @@ module.exports = function create() {
     };
 
     // scale test for camera
-    let megaMan = this.add.megaMan(100, 100, "megaman"); 
+    let megaMan = this.add.megaMan(100, 700, "megaman"); 
     megaMan.displayWidth = cameraWidth * .1; //determines player's relative size
     megaMan.scaleY = megaMan.scaleX;
     megaMan.play('idle');
@@ -130,7 +130,7 @@ module.exports = function create() {
 
     // camera settings
     this.cameras.main.setBounds(0, 0, width, height); //set bounds to the size of the game map
-    this.cameras.main.startFollow(player, true); //camera follows player
+    this.cameras.main.startFollow(player, true, 0.055, 0.1); //camera follows player
     //this.cameras.main.setZoom(1.5);
 
     // set walls

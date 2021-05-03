@@ -24,6 +24,7 @@ var config = {
       default: "arcade",
       arcade: {
         debug: false,
+        tileBias: 70,
         fps: 60,
         gravity: {
           y: 2000,
