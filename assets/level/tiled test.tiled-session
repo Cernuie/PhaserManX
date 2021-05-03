@@ -11,6 +11,12 @@
         "": {
             "scaleInDock": 1
         },
+        "16x16 tilesize test.tmx#mtrd": {
+            "scaleInEditor": 4
+        },
+        "16x16 tilesize test.tmx#mtrd_tileset": {
+            "scaleInEditor": 1.5
+        },
         "base tiles.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
@@ -23,7 +29,7 @@
             "scale": 0.33,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1148.4848484848487,
+                "x": 1151.5151515151517,
                 "y": 789.3939393939393
             }
         },
@@ -32,9 +38,13 @@
         }
     },
     "last.exportedFilePath": "C:/Users/User/Documents/mintbean/phaser-action-game/assets/level",
-    "last.imagePath": "C:/Users/User/Documents/mintbean/phaser-action-game/assets/level/Request pack",
+    "last.imagePath": "C:/Users/User/Documents/mintbean/phaser-action-game/assets/level/mtrd_tileset",
+    "map.height": 40,
     "map.lastUsedExportFilter": "JSON map files (*.json)",
     "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 60,
     "openFiles": [
         "tiled map test.tmx"
     ],
@@ -46,8 +56,9 @@
     ],
     "tileset.embedInMap": true,
     "tileset.lastUsedFormat": "tsx",
+    "tileset.spacing": 8,
     "tileset.tileSize": {
-        "height": 70,
-        "width": 70
+        "height": 16,
+        "width": 16
     }
 }

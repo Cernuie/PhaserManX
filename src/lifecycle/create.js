@@ -4,8 +4,11 @@ const { Cameras } = require("phaser");
 
 module.exports = function create() {
 
-    // adds background image
-    // this.add.image(960, 540, 'bg');
+    // tilemap
+    // tile layers must be ordered properly
+    // eg background must come before megaman in the code, and foreground must come after
+    var map = this.make.tilemap({ key: 'small_tiles' }); // calls from tilemap JSON
+    var tileset = map.addTilesetImage('mtrd', 'tiles'); // connects Tiled tileset to image source
 
     // creates various animations for megaman
     this.anims.create({
@@ -111,8 +114,11 @@ module.exports = function create() {
         down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
     };
 
+    // background layer ***MUST COME BEFORE MEGAMAN
+    map.createStaticLayer(0, tileset); 
+
     // scale test for camera
-    let megaMan = this.add.megaMan(100, 700, "megaman"); 
+    let megaMan = this.add.megaMan(100, 100, "megaman"); 
     megaMan.displayWidth = cameraWidth * .1; //determines player's relative size
     megaMan.scaleY = megaMan.scaleX;
     megaMan.play('idle');
@@ -121,12 +127,13 @@ module.exports = function create() {
     world.player = this.physics.add.existing(player);
     world.player.play('warping_in');
 
-    // tilemap
-    var map = this.make.tilemap({ key: 'level1' }); // calls from tilemap JSON
-    var tileset = map.addTilesetImage('level_tiles', 'tiles'); // connects Tiled tileset to image source
-    var platforms = map.createStaticLayer(0, tileset) // param1: layerID; param2: tileset source
-    map.setCollision([ 15 ]); // 15 is the tile ID code for the platform i used
-    this.physics.add.collider(player, platforms);
+    // collision layer
+    var platforms = map.createStaticLayer(1, tileset); // param1: layerID; param2: tileset source
+    platforms.setCollisionBetween(1,999,true); //enables collision with tiles ID 1-999
+    this.physics.add.collider(player, platforms); //enable collsion between tiles and player
+
+    // foreground layer
+    map.createStaticLayer(2, tileset);
 
     // camera settings
     this.cameras.main.setBounds(0, 0, width, height); //set bounds to the size of the game map
