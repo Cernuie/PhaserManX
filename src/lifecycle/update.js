@@ -63,4 +63,8 @@ module.exports = function update() {
     else {
         jumpTimer = 0;
     }
+
+    if (this.keys.jump.isDown) {
+      
+    }
 };
