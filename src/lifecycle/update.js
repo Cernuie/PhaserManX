@@ -1,11 +1,6 @@
 const world = require('../world');
 const Phaser = require('Phaser');
-const walkingSpeed = 250;
 const dashingSpeed = 650;
-const jumpTimerIncrement = 50;
-
-let jumpTimer = 0;
-let isDashing = false;
 
 module.exports = function update() {
     const cursors = this.input.keyboard.createCursorKeys();
@@ -25,9 +20,9 @@ module.exports = function update() {
 
     if (player.IsDashing) {
         if (player.flipX){
-            player.body.velocity.x = -650;
+            player.body.velocity.x = -dashingSpeed;
         } else {
-            player.body.velocity.x = 650;
+            player.body.velocity.x = dashingSpeed;
         }
     }
 
