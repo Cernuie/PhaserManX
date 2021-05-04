@@ -46,7 +46,7 @@ class Bullets extends Phaser.Physics.Arcade.Group {
 }
 
 Phaser.GameObjects.GameObjectFactory.register("bullets", function (...args) {
-  const bullets = new Bullets(this.scene, ...args);
+  const bullets = new Bullet(this.scene, ...args);
 
   this.displayList.add(bullets)
   this.updateList.add(bullets)
