@@ -179,7 +179,6 @@ module.exports = function create() {
     //testing playerController
 
     PlayerController
-    debugger;
     this.PlayerController = new PlayerController(player)
     this.PlayerController.setState('idle')  
 

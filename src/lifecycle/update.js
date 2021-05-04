@@ -58,16 +58,18 @@ module.exports = function update() {
         //player.run(false);
         this.PlayerController.setState('moveRight')
         //player.body.velocity.x = 250
-    } else if (this.keys.jump.isDown || this.keys.jump2.isDown) {
-      //player.jump();
-      this.PlayerController.setState('jump')
-      
-    } else if (player.body.onFloor()) {
+    } else if (player.body.onFloor()){
       this.PlayerController.setState('idle')
     }
 
-    if (player.body.onFloor()) {
-      player.JumpTimer = 0;
+    if (this.keys.jump.isDown || this.keys.jump2.isDown) {
+        //player.jump();
+        this.PlayerController.setState('jump')
     }
+    else {
+        player.JumpTimer = 0;
+    }
+
     this.PlayerController.runCurrentState();
+    //console.log(player.body.velocity.x)
 };
