@@ -1,6 +1,7 @@
 const world = require("../world");
 const { width, height, cameraWidth, cameraHeight } = require("../constants");
 const { Cameras } = require("phaser");
+const { default: PlayerController } = require("../PlayerController");
 
 module.exports = function create() {
 
@@ -175,13 +176,20 @@ module.exports = function create() {
         }
     });
 
+    //testing playerController
+
+    PlayerController
+    debugger;
+    this.PlayerController = new PlayerController(player)
+    this.PlayerController.setState('idle')  
+
     //create the bullet 
     //bullet = this.add.Bullet(5, 5, "bullet");
     //animation for fire bullet
     //add context for firing in air/ground later
     this.input.keyboard.on('keydown-Z', function(event) {
         player.fire();
-        
+
     })
 
     this.input.keyboard.on('keyup-Z', function(event) {

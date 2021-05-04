@@ -23,7 +23,7 @@ var config = {
     physics: {
       default: "arcade",
       arcade: {
-        debug: false,
+        debug: true,
         tileBias: 40, // test allowable limits - should NOT be larger than tilesize
         fps: 60,
         gravity: {
