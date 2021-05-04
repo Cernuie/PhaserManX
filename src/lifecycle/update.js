@@ -53,22 +53,21 @@ module.exports = function update() {
     if (left.isDown) {
         // player.run(true);
         this.PlayerController.setState('moveLeft')
-        console.log('hi')
         // player.body.velocity.x = -250 
     } else if (right.isDown) {
         //player.run(false);
         this.PlayerController.setState('moveRight')
         //player.body.velocity.x = 250
-    } else {
+    } else if (this.keys.jump.isDown || this.keys.jump2.isDown) {
+      //player.jump();
+      this.PlayerController.setState('jump')
+      
+    } else if (player.body.onFloor()) {
       this.PlayerController.setState('idle')
     }
 
-    if (this.keys.jump.isDown || this.keys.jump2.isDown) {
-        player.jump();
+    if (player.body.onFloor()) {
+      player.JumpTimer = 0;
     }
-    else {
-        player.JumpTimer = 0;
-    }
-
     this.PlayerController.runCurrentState();
 };
