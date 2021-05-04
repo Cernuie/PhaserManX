@@ -17,5 +17,9 @@ export default class IdleState
 	{
     this.player.play('idle')
 		this.player.body.setVelocity(0, 0)
-	}
+    }
+
+    update()
+    {
+    }
 }

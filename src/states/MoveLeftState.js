@@ -19,7 +19,12 @@ export default class MoveLeftState
 		  this.player.play('run')
     }
     this.player.flipX = true
-		const speed = 250
-		this.player.body.setVelocityX(-speed)
-	}
+		// const speed = 250
+		this.player.body.velocity.x = -250
+    }
+
+	update() {
+		// const speed = 250
+		this.player.body.velocity.x = -250
+    }
 }

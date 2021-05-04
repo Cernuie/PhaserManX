@@ -38,5 +38,10 @@ export default class PlayerController
    
      this.currentState = this.states[name]
      this.currentState.enter()
-   }
+    }
+    runCurrentState() {
+		      if (this.currentState) {
+				  this.currentState.update();
+        }
+    }
    }

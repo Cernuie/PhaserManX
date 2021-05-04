@@ -13,11 +13,14 @@ export default class MoveRightState
 
 	enter()
 	{
-    if (this.player.body.onFloor()){
-		  this.player.play('run')
+    if (this.player.body.onFloor()) {
+			this.player.play('run')
+		}
     }
-    this.player.flipX = false
-		const speed = 250
-		this.player.body.setVelocityX(speed)
-	}
+
+	update()
+	{
+		this.player.flipX = false
+		this.player.body.velocity.x = 250
+    }
 }

@@ -53,9 +53,12 @@ module.exports = function update() {
     if (left.isDown) {
         // player.run(true);
         this.PlayerController.setState('moveLeft')
+        console.log('hi')
+        // player.body.velocity.x = -250 
     } else if (right.isDown) {
         //player.run(false);
         this.PlayerController.setState('moveRight')
+        //player.body.velocity.x = 250
     } else {
       this.PlayerController.setState('idle')
     }
@@ -67,4 +70,5 @@ module.exports = function update() {
         player.JumpTimer = 0;
     }
 
+    this.PlayerController.runCurrentState();
 };
