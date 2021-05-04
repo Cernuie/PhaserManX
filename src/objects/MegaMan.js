@@ -57,6 +57,15 @@ class MegaMan extends Phaser.GameObjects.Sprite {
     stopDashing() {
         this.IsDashing = false;
     }
+
+    shoot(movingLeft) {
+        if (movingLeft) {
+            this.bullets.fireBullet(this.x, this.y);
+        }
+        else {
+            this.bullets.fireBullet(this.x, this.y);
+        }
+    }
 }
 
 Phaser.GameObjects.GameObjectFactory.register("megaMan", function (...args) {

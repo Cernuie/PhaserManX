@@ -20,4 +20,6 @@ module.exports = function preload() {
     // this.load.tilemapTiledJSON('level1', level1);
     this.load.image('tiles', mtrdSet);
     this.load.tilemapTiledJSON('small_tiles', smallTiles);
+
+    this.load.image('bullet', '/assets/sprites/megaman/frame123.png')
 };
