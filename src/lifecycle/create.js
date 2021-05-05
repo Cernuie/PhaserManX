@@ -125,6 +125,7 @@ module.exports = function create() {
 
     const player = megaMan
     world.player = this.physics.add.existing(player);
+    megaMan.body.setSize(megaMan.frame.realWidth*.5, megaMan.frame.realHeight, true)
     world.player.play('warping_in');
 
     // collision layer
@@ -142,23 +143,4 @@ module.exports = function create() {
 
     // set walls
     this.physics.world.setBounds(0, 0, width, height);
-
-    //airdash event attempt - needs to have set length and immune to gravity (or velocity.y = 0?) for the duration
-    this.input.keyboard.on('keydown-C', function (event) {
-        if (player.body.onFloor()) {     
-            player.dash();
-            if (player.anims.currentAnim.key !== 'dash' && player.anims.currentAnim.key !== 'dash_start'){
-                player.play('dash_start').on('animationcomplete', () => 
-                {
-                    player.play('dash');
-                });
-            }
-        }
-    });
-
-    this.input.keyboard.on('keyup-C', function (event) {
-        if (player.body.onFloor()) {
-            player.stopDashing();
-        }
-    });
 };
