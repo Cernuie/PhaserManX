@@ -6,6 +6,7 @@ import megamanJSON from '/assets/sprites/megaman.json';
 import demolvl from '/assets/level/demo.json';
 import mtrdSet from '/assets/level/mtrd_tileset/mtrd_tileset.png';
 import bullet from '/assets/sprites/megaman/frame123.png'
+var assetRoot = '../../assets/quantitybar/';
 
 module.exports = function preload() {
 

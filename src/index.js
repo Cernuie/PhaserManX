@@ -2,14 +2,12 @@ const Phaser = require("phaser");
 const create = require("./lifecycle/create");
 const preload = require("./lifecycle/preload");
 const update = require("./lifecycle/update");
-
 // factories
 require("./objects/MegaMan.js");
 require("./objects/Bullet.js");
 
 // constants
 const { width, height, cameraWidth, cameraHeight } = require("./constants");
-
 var config = {
     type: Phaser.AUTO,
     //screen boundaries
@@ -18,7 +16,7 @@ var config = {
     scene: {
       preload,
       create,
-      update,
+      update
     },
     pixelArt: true,
     physics: {

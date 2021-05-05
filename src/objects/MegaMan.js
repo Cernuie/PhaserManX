@@ -2,12 +2,16 @@ const Phaser = require("phaser");
 const walkingSpeed = 250;
 const dashingSpeed = 650;
 const jumpTimerIncrement = 50;
+import HealthBar from "./HealthBar.js"
 
 class MegaMan extends Phaser.GameObjects.Sprite {
     constructor(scene, ...args) {
         super(scene, ...args);
         this.initialized = false;
         scene.add.existing(this);
+        this.alive = true;
+        this.hp = new HealthBar(scene, 50 , 500);
+        this.hp.fixedToCamera = true;
     }
 
     JumpTimer = 0;
@@ -65,6 +69,10 @@ class MegaMan extends Phaser.GameObjects.Sprite {
         else if (!movingLeft) {
             this.scene.bullets.fireBullet(this.x, this.y, movingLeft);
         }
+    }
+
+    damaged() {
+        this.hp -= 1
     }
 }
 

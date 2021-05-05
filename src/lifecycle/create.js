@@ -2,6 +2,8 @@ const world = require("../world");
 const { width, height, cameraWidth, cameraHeight } = require("../constants");
 const { Cameras } = require("phaser");
 import Bullets from "../objects/Bullet.js"
+import { QuantityBar } from 'phaser-ui-tools';
+
 
 module.exports = function create() {
 
@@ -169,4 +171,5 @@ module.exports = function create() {
     this.input.keyboard.on('keydown-R', function (event) {
         this.scene.restart()
     }, this)
+
 };
