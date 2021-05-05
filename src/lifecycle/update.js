@@ -81,12 +81,8 @@ module.exports = function update() {
       
     }
 
-    if (Phaser.Input.Keyboard.JustDown(this.keys.fire) && left.isDown) {
-      player.shoot(true);
-    }
-
-    if (Phaser.Input.Keyboard.JustDown(this.keys.fire) && right.isDown) {
-      player.shoot(false)
+    if (Phaser.Input.Keyboard.JustDown(this.keys.fire)) {
+      player.shoot(player.flipX);
     }
 
     //console.log(player.x)

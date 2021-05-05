@@ -34,7 +34,7 @@ export default class Bullets extends Phaser.Physics.Arcade.Group {
 
     this.createMultiple({
       classType: Bullet,
-      frameQuantity: 5,
+      frameQuantity: 200,
       active: false,
       visible: false,
       key: 'bullet'
