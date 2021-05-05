@@ -85,5 +85,9 @@ module.exports = function update() {
       player.shoot(true)
     }
 
+    if (this.keys.fire.isDown && right.isDown) {
+      player.shoot(false)
+    }
+
     //console.log(player.x)
 };

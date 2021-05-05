@@ -5,11 +5,15 @@ class Bullet extends Phaser.Physics.Arcade.Sprite {
     super(scene, x, y, 'bullet');
   }
 
-  fire(x, y) {
+  fire(x, y, movingLeft) {
     this.body.reset(x, y);
     this.setActive(true);
     this.setVisible(true);
-    this.setVelocityX(-400);
+    if (movingLeft) {
+      this.setVelocityX(-400);
+    } else {
+      this.setVelocityX(400);
+    }
   }
 
   preUpdate (time, delta)
@@ -37,11 +41,11 @@ export default class Bullets extends Phaser.Physics.Arcade.Group {
     })
   }
 
-  fireBullet(x, y) {
+  fireBullet(x, y, movingLeft) {
     let bullet = this.getFirstDead(false);
     if (bullet) {
       bullet.body.setAllowGravity(false);
-      bullet.fire(x, y)
+      bullet.fire(x, y, movingLeft)
     }
   }
 }
