@@ -130,6 +130,8 @@ module.exports = function create() {
     world.player.play('warping_in');
 
     const enemy = this.add.enemy(3200, 600, 'enemy');
+    enemy.displayWidth = enemy.displayWidth * 1.5;
+    enemy.scaleY = enemy.scaleX;
     world.enemies.push(this.physics.add.existing(enemy));
 
     // collision layer
