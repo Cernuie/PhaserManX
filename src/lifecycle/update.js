@@ -73,7 +73,9 @@ module.exports = function update() {
     if (player.JumpTimer < player.JumpLimit && this.keys.jump.isDown || this.keys.jump2.isDown) {
             player.jump();
     } else if (player.JumpTimer > 0 || player.IsJumping) {
-        player.body.setVelocityY(-300); //velocity to initiate falling arc
+        if (player.body.velocity.y < 0) {
+            player.body.setVelocityY(-300); //velocity to initiate falling arc
+        }
         player.IsJumping = false;
         player.JumpTimer = 0;
     }
