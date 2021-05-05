@@ -165,6 +165,8 @@ module.exports = function create() {
     });
 
     this.bullets = new Bullets(this);
-
   
+    this.input.keyboard.on('keydown-R', function (event) {
+        this.scene.restart()
+    }, this)
 };
