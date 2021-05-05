@@ -3,7 +3,7 @@ import megaman from '/assets/sprites/megaman.png';
 import megamanJSON from '/assets/sprites/megaman.json';
 // import level1 from '/assets/level/tiled map test.json';
 // import tiles from '/assets/level/Request pack/sheet.png';
-import smallTiles from '/assets/level/16x16 tilesize test.json';
+import demolvl from '/assets/level/demo.json';
 import mtrdSet from '/assets/level/mtrd_tileset/mtrd_tileset.png';
 import bullet from '/assets/sprites/megaman/frame123.png'
 
@@ -20,7 +20,7 @@ module.exports = function preload() {
     // this.load.image('tiles', tiles);
     // this.load.tilemapTiledJSON('level1', level1);
     this.load.image('tiles', mtrdSet);
-    this.load.tilemapTiledJSON('small_tiles', smallTiles);
+    this.load.tilemapTiledJSON('demolvl', demolvl);
 
     this.load.image('bullet', bullet)
 };

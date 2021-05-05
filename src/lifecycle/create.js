@@ -8,7 +8,7 @@ module.exports = function create() {
     // tilemap
     // tile layers must be ordered properly
     // eg background must come before megaman in the code, and foreground must come after
-    var map = this.make.tilemap({ key: 'small_tiles' }); // calls from tilemap JSON
+    var map = this.make.tilemap({ key: 'demolvl' }); // calls from tilemap JSON
     var tileset = map.addTilesetImage('mtrd', 'tiles'); // connects Tiled tileset to image source
 
     // creates various animations for megaman
@@ -138,7 +138,7 @@ module.exports = function create() {
     map.createStaticLayer(2, tileset);
 
     // camera settings
-    this.cameras.main.setBounds(0, 0, width, height); //set bounds to the size of the game map
+    this.cameras.main.setBounds(0, 0, width, height - 80); //set bounds to the size of the game map
     this.cameras.main.startFollow(player, true, 0.055, 0.1); //camera follows player
     //this.cameras.main.setZoom(1.5);
 
@@ -165,6 +165,8 @@ module.exports = function create() {
     });
 
     this.bullets = new Bullets(this);
-
   
+    this.input.keyboard.on('keydown-R', function (event) {
+        this.scene.restart()
+    }, this)
 };
