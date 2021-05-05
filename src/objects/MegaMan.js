@@ -1,4 +1,5 @@
 const Phaser = require("phaser");
+const { player } = require("../world");
 const walkingSpeed = 250;
 const dashingSpeed = 650;
 
@@ -13,6 +14,7 @@ class MegaMan extends Phaser.GameObjects.Sprite {
     JumpLimit = 12;
     IsJumping = false;
     IsDashing = false;
+    IsLanded = true;
 
     // For some reason, Phaser needs this empty method.
     preUpdate(time, delta) {
@@ -23,8 +25,9 @@ class MegaMan extends Phaser.GameObjects.Sprite {
     }
 
     jump() {
-        if (this.body.onFloor() && this.JumpTimer === 0) {
+        if (this.body.onFloor() && this.JumpTimer === 0 && this.IsLanded) {
             this.IsJumping = true
+            this.IsLanded = false;
             this.JumpTimer += 1;
             this.body.setVelocityY(-275 - (35 * (this.JumpTimer)))
         } else if (this.JumpTimer > 0 && this.JumpTimer < this.JumpLimit) {

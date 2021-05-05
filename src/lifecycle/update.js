@@ -63,5 +63,6 @@ module.exports = function update() {
     else {
         player.JumpTimer = 0;
         player.IsJumping = false
+        player.IsLanded = true;
     }
 };
