@@ -129,7 +129,7 @@ module.exports = function create() {
     megaMan.body.setSize(megaMan.frame.realWidth*.5, megaMan.frame.realHeight, true)
     world.player.play('warping_in');
 
-    const enemy = this.add.enemy(280, 200, 'enemy');
+    const enemy = this.add.enemy(3200, 600, 'enemy');
     world.enemies.push(this.physics.add.existing(enemy));
 
     // collision layer
