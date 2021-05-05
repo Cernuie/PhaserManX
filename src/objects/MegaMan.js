@@ -10,7 +10,7 @@ class MegaMan extends Phaser.GameObjects.Sprite {
         this.initialized = false;
         scene.add.existing(this);
         this.alive = true;
-        this.hp = new HealthBar(scene, 50 , 500);
+        this.hp = new HealthBar(scene, 25 , 100);
         this.hp.fixedToCamera = true;
     }
 
