@@ -176,6 +176,16 @@ module.exports = function create() {
     this.physics.add.overlap(player, this.enemyBullets, function(player, bullet) {
         player.hurtByBullet();
     }, null, this);
+
+    this.physics.add.collider(this.bullets, platforms, function (bullets) {
+        bullets.setActive(false);
+        bullets.setVisible(false);
+    })
+
+    this.physics.add.collider(this.enemyBullets, platforms, function (enemyBullets) {
+        enemyBullets.setActive(false);
+        enemyBullets.setVisible(false);
+    })
   
     this.input.keyboard.on('keydown-R', function (event) {
         this.scene.restart()
