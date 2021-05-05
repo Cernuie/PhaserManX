@@ -1,6 +1,7 @@
 const world = require("../world");
 const { width, height, cameraWidth, cameraHeight } = require("../constants");
 const { Cameras } = require("phaser");
+import Bullets from "../objects/Bullet.js"
 
 module.exports = function create() {
 
@@ -143,4 +144,27 @@ module.exports = function create() {
 
     // set walls
     this.physics.world.setBounds(0, 0, width, height);
+
+    //airdash event attempt - needs to have set length and immune to gravity (or velocity.y = 0?) for the duration
+    this.input.keyboard.on('keydown-C', function (event) {
+        if (player.body.onFloor()) {     
+            player.dash();
+            if (player.anims.currentAnim.key !== 'dash' && player.anims.currentAnim.key !== 'dash_start'){
+                player.play('dash_start').on('animationcomplete', () => 
+                {
+                    player.play('dash');
+                });
+            }
+        }
+    });
+
+    this.input.keyboard.on('keyup-C', function (event) {
+        if (player.body.onFloor()) {
+            player.stopDashing();
+        }
+    });
+
+    this.bullets = new Bullets(this);
+
+  
 };

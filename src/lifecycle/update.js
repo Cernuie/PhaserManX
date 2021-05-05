@@ -80,4 +80,10 @@ module.exports = function update() {
     if (this.keys.jump.isDown) {
       
     }
+
+    if (this.keys.fire.isDown && left.isDown) {
+      player.shoot(true)
+    }
+
+    //console.log(player.x)
 };
