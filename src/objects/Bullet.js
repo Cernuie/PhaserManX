@@ -24,7 +24,7 @@ class Bullet extends Phaser.Physics.Arcade.Sprite {
     }
 }
 
-class Bullets extends Phaser.Physics.Arcade.Group {
+export default class Bullets extends Phaser.Physics.Arcade.Group {
   constructor(scene) {
     super(scene.physics.world, scene);
 
@@ -44,12 +44,3 @@ class Bullets extends Phaser.Physics.Arcade.Group {
     }
   }
 }
-
-Phaser.GameObjects.GameObjectFactory.register("bullets", function (...args) {
-  const bullets = new Bullet(this.scene, ...args);
-
-  this.displayList.add(bullets)
-  this.updateList.add(bullets)
-
-  return bullets
-})

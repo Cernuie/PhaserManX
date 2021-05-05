@@ -1,6 +1,7 @@
 const world = require("../world");
 const { width, height, cameraWidth, cameraHeight } = require("../constants");
 const { Cameras } = require("phaser");
+import Bullets from "../objects/Bullet.js"
 
 module.exports = function create() {
 
@@ -161,7 +162,8 @@ module.exports = function create() {
             player.stopDashing();
         }
     });
-    
+
     this.bullets = new Bullets(this);
+
   
 };
