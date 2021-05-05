@@ -40,6 +40,7 @@ export default class Bullets extends Phaser.Physics.Arcade.Group {
   fireBullet(x, y) {
     let bullet = this.getFirstDead(false);
     if (bullet) {
+      bullet.body.setAllowGravity(false);
       bullet.fire(x, y)
     }
   }
