@@ -12,6 +12,11 @@ module.exports = function update(time, delta) {
     //crappy left-right movement on key up/down
     //order matters here, if isUp is after isDown it doesn't work
 
+    if (player.damaged){
+        player.damaged = false;
+        return;
+    }
+
     // animate the starting beam landing
     if (player.body.onFloor() && player.anims.currentAnim.key === 'warping_in'){
         player.play('landing').on('animationcomplete', () => 

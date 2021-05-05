@@ -171,6 +171,10 @@ module.exports = function create() {
     });
 
     this.bullets = new Bullets(this);
+
+    this.physics.add.overlap(player, this.bullets, function(player, bullet) {
+        player.hurtByBullet();
+    }, null, this);
   
     this.input.keyboard.on('keydown-R', function (event) {
         this.scene.restart()
