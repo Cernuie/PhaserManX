@@ -6,7 +6,7 @@ module.exports = function update() {
     const cursors = this.input.keyboard.createCursorKeys();
 
     const { left, right} = cursors;
-    const { player } = world;
+    const { player, enemies } = world;
     //crappy left-right movement on key up/down
     //order matters here, if isUp is after isDown it doesn't work
 
@@ -84,6 +84,10 @@ module.exports = function update() {
     if (this.keys.fire.isDown && left.isDown) {
       player.shoot(true)
     }
+
+    enemies.forEach(enemy => {
+        enemy.shoot();
+    });
 
     //console.log(player.x)
 };

@@ -129,10 +129,14 @@ module.exports = function create() {
     megaMan.body.setSize(megaMan.frame.realWidth*.5, megaMan.frame.realHeight, true)
     world.player.play('warping_in');
 
+    const enemy = this.add.enemy(280, 200, 'enemy');
+    world.enemies.push(this.physics.add.existing(enemy));
+
     // collision layer
     var platforms = map.createStaticLayer(1, tileset); // param1: layerID; param2: tileset source
     platforms.setCollisionBetween(1,999,true); //enables collision with tiles ID 1-999
     this.physics.add.collider(player, platforms); //enable collsion between tiles and player
+    this.physics.add.collider(enemy, platforms); //enable collsion between tiles and player
 
     // foreground layer
     map.createStaticLayer(2, tileset);

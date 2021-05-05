@@ -1,5 +1,6 @@
 const world = {
   player: undefined,
+  enemies: [],
   cpu: [],
 };
 
