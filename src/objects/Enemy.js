@@ -17,7 +17,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
 
     shoot() {
         if (this.scene !== undefined)
-            this.scene.bullets.fireBullet(this.x - 23, this.y - 1, true);
+            this.scene.enemyBullets.fireBullet(this.x - 23, this.y - 1, true);
     }
 }
 

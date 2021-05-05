@@ -171,8 +171,9 @@ module.exports = function create() {
     });
 
     this.bullets = new Bullets(this);
+    this.enemyBullets = new Bullets(this);
 
-    this.physics.add.overlap(player, this.bullets, function(player, bullet) {
+    this.physics.add.overlap(player, this.enemyBullets, function(player, bullet) {
         player.hurtByBullet();
     }, null, this);
   
