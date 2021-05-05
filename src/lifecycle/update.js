@@ -93,6 +93,4 @@ module.exports = function update(time, delta) {
         });
         timer -= 1000;
     }
-
-    //console.log(player.x)
 };
