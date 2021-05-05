@@ -86,4 +86,7 @@ module.exports = function update() {
     }
 
     //console.log(player.x)
+
+    //console.log(player.hp.bar)
+    player.hp.bar.setScrollFactor(0,0)
 };
