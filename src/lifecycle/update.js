@@ -81,8 +81,12 @@ module.exports = function update() {
       
     }
 
-    if (this.keys.fire.isDown && left.isDown) {
-      player.shoot(true)
+    if (Phaser.Input.Keyboard.JustDown(this.keys.fire) && left.isDown) {
+      player.shoot(true);
+    }
+
+    if (Phaser.Input.Keyboard.JustDown(this.keys.fire) && right.isDown) {
+      player.shoot(false)
     }
 
     enemies.forEach(enemy => {

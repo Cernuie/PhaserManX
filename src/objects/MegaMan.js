@@ -60,10 +60,10 @@ class MegaMan extends Phaser.GameObjects.Sprite {
 
     shoot(movingLeft) {
         if (movingLeft) {
-            this.scene.bullets.fireBullet(this.x, this.y);
+            this.scene.bullets.fireBullet(this.x, this.y, movingLeft);
         }
-        else {
-            this.scene.bullets.fireBullet(this.x, this.y);
+        else if (!movingLeft) {
+            this.scene.bullets.fireBullet(this.x, this.y, movingLeft);
         }
     }
 }
