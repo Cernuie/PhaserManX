@@ -1,7 +1,6 @@
 const Phaser = require("phaser");
 const walkingSpeed = 250;
 const dashingSpeed = 650;
-const jumpTimerIncrement = 50;
 
 class MegaMan extends Phaser.GameObjects.Sprite {
     constructor(scene, ...args) {
@@ -11,6 +10,8 @@ class MegaMan extends Phaser.GameObjects.Sprite {
     }
 
     JumpTimer = 0;
+    JumpLimit = 12;
+    IsJumping = false;
     IsDashing = false;
 
     // For some reason, Phaser needs this empty method.
@@ -23,15 +24,16 @@ class MegaMan extends Phaser.GameObjects.Sprite {
 
     jump() {
         if (this.body.onFloor() && this.JumpTimer === 0) {
-            this.JumpTimer += jumpTimerIncrement;
-            this.body.setVelocityY(-200 - (this.JumpTimer))
-        } else if (this.JumpTimer > 0 && this.JumpTimer < 400) {
-            this.JumpTimer += jumpTimerIncrement;
-            this.body.setVelocityY(-200 - (this.JumpTimer));
+            this.IsJumping = true
+            this.JumpTimer += 1;
+            this.body.setVelocityY(-275 - (35 * (this.JumpTimer)))
+        } else if (this.JumpTimer > 0 && this.JumpTimer < this.JumpLimit) {
+            this.JumpTimer += 1;
+            this.body.setVelocityY(-275 - (35 * (this.JumpTimer)));
             if (this.anims.currentAnim.key !== 'jump' && !this.body.onFloor())
                 this.play('jump');
             if (this.IsDashing) this.IsJumpDashing = true;
-        }
+        } 
     }
 
     run(movingLeft) {
