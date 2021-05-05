@@ -162,32 +162,6 @@ module.exports = function create() {
         }
     });
     
-class Bullets extends Phaser.Physics.Arcade.Group {
-    constructor(scene) {
-      super(scene.physics.world, scene);
-  
-      this.createMultiple({
-        classType: Bullet,
-        frameQuantity: 5,
-        active: false,
-        visible: false,
-        key: 'bullet'
-      })
-    }
-  
-    // For some reason, Phaser needs this empty method.
-    preUpdate() {
-      if (!this.initialized) {
-        this.initialized = true;
-      }
-    }
-  
-    fireBullet(x, y) {
-      let bullet = this.getFirstDead(false);
-      if (bullet) {
-        bullet.fire(x, y)
-      }
-    }
-  }
+    this.bullets = new Bullets(this);
   
 };
