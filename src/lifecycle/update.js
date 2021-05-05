@@ -1,8 +1,10 @@
 const world = require('../world');
 const Phaser = require('Phaser');
 const dashingSpeed = 650;
+let timer = 0;
 
-module.exports = function update() {
+module.exports = function update(time, delta) {
+    timer += delta;
     const cursors = this.input.keyboard.createCursorKeys();
 
     const { left, right} = cursors;
@@ -85,9 +87,12 @@ module.exports = function update() {
       player.shoot(player.flipX);
     }
 
-    enemies.forEach(enemy => {
-        enemy.shoot();
-    });
+    while (timer > 1000) {
+        enemies.forEach(enemy => {
+            enemy.shoot();
+        });
+        timer -= 1000;
+    }
 
     //console.log(player.x)
 };
