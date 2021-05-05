@@ -72,7 +72,11 @@ class MegaMan extends Phaser.GameObjects.Sprite {
     }
 
     damaged() {
-        this.hp -= 1
+        if (this.hp.decrease(amount))
+        {
+            this.alive = false;
+            //play a death animation or screen after
+        }
     }
 }
 
