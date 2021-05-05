@@ -45,6 +45,23 @@ module.exports = function update() {
         }
     }
 
+    if (this.keys.dash.isDown){
+        if (player.body.onFloor()) {     
+            player.dash();
+            if (player.anims.currentAnim.key !== 'dash' && player.anims.currentAnim.key !== 'dash_start'){
+                player.play('dash_start').on('animationcomplete', () => 
+                {
+                    player.play('dash');
+                });
+            }
+        }
+    }
+    else {
+        if (player.body.onFloor()) {
+            player.stopDashing();
+        }
+    }
+
     if (left.isDown) {
         player.run(true);
     }
