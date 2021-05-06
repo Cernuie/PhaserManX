@@ -199,23 +199,41 @@ module.exports = function create() {
         player.hurtByBullet();
     }, null, this);
 
+    //bullets die when hitting a wall
     this.physics.add.collider(this.bullets, platforms, function (bullets) {
         bullets.setActive(false);
         bullets.setVisible(false);
     })
 
     this.physics.add.collider(this.enemyBullets, platforms, function (enemyBullets) {
-        enemyBullets.setActive(false);
-        enemyBullets.setVisible(false);
+        enemyBullets.destroy()
     })
-  
+
+    //restart when softlocked
     this.input.keyboard.on('keydown-R', function (event) {
         this.scene.restart()
     }, this)
 
+    //kill the enemy!!
     this.physics.add.overlap(enemy, this.bullets, function(enemy, bullets){
         enemy.damage()
         enemy.setTint(0xfefefe) // not working :(
         bullets.destroy()
     }, null, this)
+    
+    //sticks hp bar to camera and changes z index to forefront
+    player.hp.bar.setScrollFactor(0,0)
+    player.hp.bar.setDepth(1)
+
+
+    //victory screen
+    var win = this.add.zone(3725, 760).setSize(100, 200);
+    this.physics.world.enable(win, 0); // (0) DYNAMIC (1) STATIC
+    win.body.setAllowGravity(false);
+    win.body.moves = false;
+
+    this.physics.add.overlap(player, win, function(player) {
+        alert("LEVEL 1 CLEAR\nThat's all for now\nThanks for playing!\n(Press 'R' to restart)")
+        win.destroy()
+    })
 };

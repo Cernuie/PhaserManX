@@ -88,7 +88,7 @@ class MegaMan extends Phaser.GameObjects.Sprite {
         }
     }
 
-    damaged() {
+    damaged(amount) {
         if (this.hp.decrease(amount))
         {
             this.alive = false;
