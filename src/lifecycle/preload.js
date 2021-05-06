@@ -10,6 +10,7 @@ var assetRoot = '../../assets/quantitybar/';
 import enemy from '/assets/sprites/cannon.png'
 import deathparticle from '/assets/sprites/deathparticle.png'
 import death from '/assets/sprites/megaman/frame120.png'
+import announcement from '/assets/sound/announcement.mp3'
 
 module.exports = function preload() {
 
@@ -30,4 +31,5 @@ module.exports = function preload() {
     this.load.image('enemy', enemy)
     this.load.image('deathparticle', deathparticle)
     this.load.image('death', death)
+    this.load.audio('announcement', announcement);
 };

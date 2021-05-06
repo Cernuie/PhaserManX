@@ -64,11 +64,6 @@ class MegaMan extends Phaser.GameObjects.Sprite {
     }
 
     shoot(movingLeft) {
-        // this.DeathEmitter.setPosition(this.x, this.y);
-        // this.DeathEmitter.delay = 2000
-        // this.DeathEmitter.setSpeed(200);
-        // this.DeathEmitter.setRadial(true);
-        // this.DeathEmitter.setBlendMode(Phaser.BlendModes.ADD);
         if (movingLeft) {
             this.scene.bullets.fireBullet(this.x - 20, this.y, movingLeft);
         }
