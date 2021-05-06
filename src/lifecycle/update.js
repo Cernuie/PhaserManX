@@ -11,7 +11,22 @@ module.exports = function update(time, delta) {
     const { player, enemies } = world;
     //crappy left-right movement on key up/down
     //order matters here, if isUp is after isDown it doesn't work
-
+    if (player.y > 900) player.alive = false;
+    if (!player.alive){
+        if (player.IsDyingTimer >= 200) {
+            this.scene.restart()
+        }
+        if (player.IsDyingTimer === 0) {
+            player.play('death').on('animationcomplete', () => 
+            {
+                player.setVisible(false);
+            });
+        } else {
+            this.gameOverScreen.alpha += delta * .0006;
+        }
+        player.IsDyingTimer += 1;
+        return;
+    }
     if (player.damaged){
         player.damaged = false;
         return;

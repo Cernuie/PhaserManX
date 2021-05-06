@@ -15,6 +15,7 @@ class MegaMan extends Phaser.GameObjects.Sprite {
     }
 
     JumpTimer = 0;
+    IsDyingTimer = 0;
     IsDashing = false;
 
     // For some reason, Phaser needs this empty method.
@@ -63,12 +64,22 @@ class MegaMan extends Phaser.GameObjects.Sprite {
     }
 
     hurtByBullet() {
+        if (this.hp.decrease(3))
+        {
+            this.alive = false;
+            //play a death animation or screen after
+        }
         this.body.velocity.x = -400;
         this.body.velocity.y = -400;
         this.damaged = true;
     }
 
     shoot(movingLeft) {
+        // this.DeathEmitter.setPosition(this.x, this.y);
+        // this.DeathEmitter.delay = 2000
+        // this.DeathEmitter.setSpeed(200);
+        // this.DeathEmitter.setRadial(true);
+        // this.DeathEmitter.setBlendMode(Phaser.BlendModes.ADD);
         if (movingLeft) {
             this.scene.bullets.fireBullet(this.x - 20, this.y, movingLeft);
         }

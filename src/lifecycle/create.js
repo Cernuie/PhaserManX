@@ -107,6 +107,19 @@ module.exports = function create() {
         repeat: -1
     });
 
+    this.anims.create({
+        key: 'death',
+        frames: this.anims.generateFrameNames('megaman', {
+            prefix: 'frame',
+            suffix: '.png',
+            start: 120,
+            end: 120,
+            zeroPad: 1
+        }),
+        frameRate: 20,
+        repeat: -1
+    });
+
     this.keys = {
         jump: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP),
         jump2: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X),
@@ -125,6 +138,7 @@ module.exports = function create() {
     megaMan.displayWidth = cameraWidth * .1; //determines player's relative size
     megaMan.scaleY = megaMan.scaleX;
     megaMan.play('idle');
+    megaMan.DeathEmitter = this.add.particles('deathparticle').createEmitter();
 
     const player = megaMan
     world.player = this.physics.add.existing(player);
@@ -152,6 +166,12 @@ module.exports = function create() {
 
     // set walls
     this.physics.world.setBounds(0, 0, width, height);
+
+    // Game over screen
+    this.gameOverScreen = this.add.rectangle(0, 0, width, height*2, 0xffffff, 1);
+    this.gameOverScreen.scrollFactorX = 0;
+    this.gameOverScreen.scrollFactorY = 0;
+    this.gameOverScreen.alpha = 0;
 
     //airdash event attempt - needs to have set length and immune to gravity (or velocity.y = 0?) for the duration
     this.input.keyboard.on('keydown-C', function (event) {
