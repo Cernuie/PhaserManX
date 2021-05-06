@@ -5,6 +5,7 @@ const update = require("./lifecycle/update");
 // factories
 require("./objects/MegaMan.js");
 require("./objects/Bullet.js");
+require("./objects/Enemy.js");
 
 // constants
 const { width, height, cameraWidth, cameraHeight } = require("./constants");

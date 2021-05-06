@@ -117,7 +117,7 @@ module.exports = function create() {
         down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
     };
 
-    // background layer ***MUST COME BEFORE MEGAMAN
+    // background layer ***MUST COME BEFORE LEVEL ENTITIES
     map.createStaticLayer(0, tileset); 
 
     // scale test for camera
@@ -131,10 +131,16 @@ module.exports = function create() {
     megaMan.body.setSize(megaMan.frame.realWidth*.5, megaMan.frame.realHeight, true)
     world.player.play('warping_in');
 
+    const enemy = this.add.enemy(3200, 600, 'enemy');
+    enemy.displayWidth = enemy.displayWidth * 1.5;
+    enemy.scaleY = enemy.scaleX;
+    world.enemies.push(this.physics.add.existing(enemy));
+
     // collision layer
     var platforms = map.createStaticLayer(1, tileset); // param1: layerID; param2: tileset source
     platforms.setCollisionBetween(1,999,true); //enables collision with tiles ID 1-999
     this.physics.add.collider(player, platforms); //enable collsion between tiles and player
+    this.physics.add.collider(enemy, platforms); //enable collsion between tiles and player
 
     // foreground layer
     map.createStaticLayer(2, tileset);
@@ -167,11 +173,29 @@ module.exports = function create() {
     });
 
     this.bullets = new Bullets(this);
+    this.enemyBullets = new Bullets(this);
+
+    this.physics.add.overlap(player, this.enemyBullets, function(player, bullet) {
+        player.hurtByBullet();
+    }, null, this);
+
+    this.physics.add.collider(this.bullets, platforms, function (bullets) {
+        bullets.setActive(false);
+        bullets.setVisible(false);
+    })
+
+    this.physics.add.collider(this.enemyBullets, platforms, function (enemyBullets) {
+        enemyBullets.setActive(false);
+        enemyBullets.setVisible(false);
+    })
   
     this.input.keyboard.on('keydown-R', function (event) {
         this.scene.restart()
     }, this)
 
-    
-    
+    this.physics.add.overlap(enemy, this.bullets, function(enemy, bullets){
+        enemy.damage()
+        enemy.setTint(0xfefefe) // not working :(
+        bullets.destroy()
+    }, null, this)
 };

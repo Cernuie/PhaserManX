@@ -7,6 +7,7 @@ import demolvl from '/assets/level/demo.json';
 import mtrdSet from '/assets/level/mtrd_tileset/mtrd_tileset.png';
 import bullet from '/assets/sprites/megaman/frame123.png'
 var assetRoot = '../../assets/quantitybar/';
+import enemy from '/assets/sprites/cannon.png'
 
 module.exports = function preload() {
 
@@ -24,4 +25,5 @@ module.exports = function preload() {
     this.load.tilemapTiledJSON('demolvl', demolvl);
 
     this.load.image('bullet', bullet)
+    this.load.image('enemy', enemy)
 };

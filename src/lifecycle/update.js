@@ -1,14 +1,21 @@
 const world = require('../world');
 const Phaser = require('Phaser');
 const dashingSpeed = 650;
+let timer = 0;
 
-module.exports = function update() {
+module.exports = function update(time, delta) {
+    timer += delta;
     const cursors = this.input.keyboard.createCursorKeys();
 
     const { left, right} = cursors;
-    const { player } = world;
+    const { player, enemies } = world;
     //crappy left-right movement on key up/down
     //order matters here, if isUp is after isDown it doesn't work
+
+    if (player.damaged){
+        player.damaged = false;
+        return;
+    }
 
     // animate the starting beam landing
     if (player.body.onFloor() && player.anims.currentAnim.key === 'warping_in'){
@@ -89,4 +96,10 @@ module.exports = function update() {
 
     //console.log(player.hp.bar)
     player.hp.bar.setScrollFactor(0,0)
+    while (timer > 1000) {
+        enemies.forEach(enemy => {
+            enemy.shoot();
+        });
+        timer -= 1000;
+    }
 };
