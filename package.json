@@ -15,5 +15,8 @@
     "phaser": "^3.54.0",
     "phaser-ce": "^2.10.3",
     "phaser-ui-tools": "^2.0.0-beta"
+  },
+  "engines": {
+    "node": "14.15.1"
   }
 }
