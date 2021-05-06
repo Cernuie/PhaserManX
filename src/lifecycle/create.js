@@ -195,8 +195,10 @@ module.exports = function create() {
     this.bullets = new Bullets(this);
     this.enemyBullets = new Bullets(this);
 
-    this.physics.add.overlap(player, this.enemyBullets, function(player, bullet) {
-        player.damaged(3);
+    //enemy bullets die when hitting player
+    this.physics.add.overlap(player, this.enemyBullets, function(player, enemyBullets) {
+        player.damaged(20);
+        enemyBullets.destroy()
     }, null, this);
 
     //bullets die when hitting a wall
@@ -224,7 +226,6 @@ module.exports = function create() {
     //sticks hp bar to camera and changes z index to forefront
     player.hp.bar.setScrollFactor(0,0)
     player.hp.bar.setDepth(1)
-
 
     //victory screen
     var win = this.add.zone(3725, 760).setSize(100, 200);
