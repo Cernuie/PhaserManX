@@ -203,4 +203,14 @@ module.exports = function create() {
     player.hp.bar.setScrollFactor(0,0)
     player.hp.bar.setDepth(1)
 
+
+    var win = this.add.zone(3750, 760).setSize(200, 200);
+    this.physics.world.enable(win, 0); // (0) DYNAMIC (1) STATIC
+    win.body.setAllowGravity(false);
+    win.body.moves = false;
+
+    this.physics.add.overlap(player, win, function(player) {
+        alert("LEVEL 1 CLEAR\nThat's all for now\nThanks for playing!\n(Press 'R' to restart)")
+        win.destroy()
+    })
 };
