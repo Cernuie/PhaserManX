@@ -12,7 +12,7 @@ import deathparticle from '/assets/sprites/deathparticle.png'
 import death from '/assets/sprites/megaman/frame120.png'
 import announcement from '/assets/sound/announcement.mp3'
 import ending from '/assets/sound/ending.mp3'
-
+import bgm from '/assets/sound/bgm.mp3'
 module.exports = function preload() {
 
     this.load.spritesheet('megamanxsprite1', megamanxsprite1, {
@@ -34,4 +34,5 @@ module.exports = function preload() {
     this.load.image('death', death)
     this.load.audio('announcement', announcement);
     this.load.audio('ending', ending);
+    this.load.audio('bgm', bgm)
 };
