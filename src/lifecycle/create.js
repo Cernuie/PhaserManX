@@ -200,6 +200,11 @@ module.exports = function create() {
         enemy.setTint(0xfefefe) // not working :(
         bullets.destroy()
     }, null, this)
+    
+    //sticks hp bar to camera and changes z index to forefront
+    player.hp.bar.setScrollFactor(0,0)
+    player.hp.bar.setDepth(1)
+
 
     //victory screen
     var win = this.add.zone(3725, 760).setSize(100, 200);
