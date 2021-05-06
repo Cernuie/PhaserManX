@@ -96,6 +96,7 @@ module.exports = function update(time, delta) {
 
     //console.log(player.hp.bar)
     player.hp.bar.setScrollFactor(0,0)
+
     while (timer > 1000) {
         enemies.forEach(enemy => {
             enemy.shoot();
