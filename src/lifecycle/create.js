@@ -233,15 +233,17 @@ module.exports = function create() {
     win.body.setAllowGravity(false);
     win.body.moves = false;
 
+    //sounds for beginning and end
     this.announcementSound = this.sound.add("announcement", { loop: false, volume: 1 })
-    this.announcementSound.play();
+    this.announcementSound.play({volume:.7});
 
     this.winSound = this.sound.add("ending", { loop: false, volume: .7 })
-
     const self = this;
     this.physics.add.overlap(player, win, function(player) {
-        self.winSound.play();
+        self.winSound.play({volume:.2});
         alert("LEVEL 1 CLEAR\nThat's all for now\nThanks for playing!\n(Press 'R' to restart)")
         win.destroy()
     })
+
+    
 };
