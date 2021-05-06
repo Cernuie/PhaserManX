@@ -63,17 +63,6 @@ class MegaMan extends Phaser.GameObjects.Sprite {
         this.IsDashing = false;
     }
 
-    hurtByBullet() {
-        if (this.hp.decrease(3))
-        {
-            this.alive = false;
-            //play a death animation or screen after
-        }
-        this.body.velocity.x = -400;
-        this.body.velocity.y = -400;
-        this.damaged = true;
-    }
-
     shoot(movingLeft) {
         // this.DeathEmitter.setPosition(this.x, this.y);
         // this.DeathEmitter.delay = 2000

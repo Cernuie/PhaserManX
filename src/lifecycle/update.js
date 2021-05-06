@@ -27,10 +27,6 @@ module.exports = function update(time, delta) {
         player.IsDyingTimer += 1;
         return;
     }
-    if (player.damaged){
-        player.damaged = false;
-        return;
-    }
 
     // animate the starting beam landing
     if (player.body.onFloor() && player.anims.currentAnim.key === 'warping_in'){

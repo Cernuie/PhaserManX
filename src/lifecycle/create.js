@@ -196,7 +196,7 @@ module.exports = function create() {
     this.enemyBullets = new Bullets(this);
 
     this.physics.add.overlap(player, this.enemyBullets, function(player, bullet) {
-        player.hurtByBullet();
+        player.damaged(3);
     }, null, this);
 
     //bullets die when hitting a wall
