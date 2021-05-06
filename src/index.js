@@ -24,7 +24,7 @@ var config = {
       default: "arcade",
       arcade: {
         debug: false,
-        tileBias: 40, // test allowable limits - should NOT be larger than tilesize
+        tileBias: 40,
         fps: 60,
         gravity: {
           y: 2000,
