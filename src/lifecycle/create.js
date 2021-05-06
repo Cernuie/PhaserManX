@@ -115,7 +115,7 @@ module.exports = function create() {
         down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
     };
 
-    // background layer ***MUST COME BEFORE MEGAMAN
+    // background layer ***MUST COME BEFORE LEVEL ENTITIES
     map.createStaticLayer(0, tileset); 
 
     // scale test for camera
@@ -190,4 +190,10 @@ module.exports = function create() {
     this.input.keyboard.on('keydown-R', function (event) {
         this.scene.restart()
     }, this)
+
+    this.physics.add.overlap(enemy, this.bullets, function(enemy, bullets){
+        enemy.damage()
+        bullets.setActive(false);
+        bullets.setVisible(false);
+    }, null, this)
 };

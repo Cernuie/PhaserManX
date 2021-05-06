@@ -7,6 +7,8 @@ class Enemy extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);
     }
 
+    health = 5
+
     // For some reason, Phaser needs this empty method.
     preUpdate(time, delta) {
         super.preUpdate(time, delta);
@@ -18,6 +20,13 @@ class Enemy extends Phaser.GameObjects.Sprite {
     shoot() {
         if (this.scene !== undefined)
             this.scene.enemyBullets.fireBullet(this.x - 23, this.y - 1, true);
+    }
+    damage() {
+        this.health += -1
+        if (this.health <= 0) {
+            this.setActive(false)
+            this.setVisible(false)
+        }
     }
 }
 
