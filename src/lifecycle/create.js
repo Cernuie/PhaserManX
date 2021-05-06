@@ -239,11 +239,42 @@ module.exports = function create() {
 
     this.winSound = this.sound.add("ending", { loop: false, volume: .7 })
     const self = this;
+    self.startTime = new Date();
+	self.totalTime = 120;
+	self.timeElapsed = 0;
+    self.timeElapsedFormatted = '00:00';
+
+	// self.gameTimer = this.time.events.loop(100, function(){
+	// 	updateTimer();
+	// });
+    this.time.addEvent({ callback: updateTimer, loop: true, delay: 100})
     this.physics.add.overlap(player, win, function(player) {
         self.winSound.play({volume:.2});
-        alert("LEVEL 1 CLEAR\nThat's all for now\nThanks for playing!\n(Press 'R' to restart)")
+        alert(`LEVEL 1 CLEARED IN ${self.timeElapsedFormatted}\nThat's all for now\nThanks for playing!\n(Press 'R' to restart)`)
         win.destroy()
     })
 
+    function updateTimer(){
+        var currentTime = new Date();
+        var timeDifference = self.startTime.getTime() - currentTime.getTime();
+
+        //Time elapsed in seconds
+        self.timeElapsed = Math.abs(timeDifference / 1000);
+
+        //Time remaining in seconds
+        var timeRemaining = self.totalTime - self.timeElapsed; 
+
+        //Convert seconds into minutes and seconds
+        var minutes = Math.floor(self.timeElapsed / 60);
+        var seconds = Math.floor(self.timeElapsed) - (60 * minutes);
+
+        //Display minutes, add a 0 to the start if less than 10
+        var result = (minutes < 10) ? "0" + minutes : minutes; 
+
+        //Display seconds, add a 0 to the start if less than 10
+        result += (seconds < 10) ? ":0" + seconds : ":" + seconds; 
+
+        self.timeElapsedFormatted = result;
+    }
     
 };

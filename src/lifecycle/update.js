@@ -2,7 +2,6 @@ const world = require('../world');
 const Phaser = require('Phaser');
 const dashingSpeed = 650;
 let timer = 0;
-
 module.exports = function update(time, delta) {
     timer += delta;
     const cursors = this.input.keyboard.createCursorKeys();
@@ -100,6 +99,7 @@ module.exports = function update(time, delta) {
     }
 
     if (Phaser.Input.Keyboard.JustDown(this.keys.fire)) {
+        console.log(this.timeElapsed)
       player.shoot(player.flipX);
     }
 
