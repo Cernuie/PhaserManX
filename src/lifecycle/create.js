@@ -237,4 +237,7 @@ module.exports = function create() {
         alert("LEVEL 1 CLEAR\nThat's all for now\nThanks for playing!\n(Press 'R' to restart)")
         win.destroy()
     })
+
+    this.announcementSound = this.sound.add("announcement", { loop: false, volume: 1 })
+    this.announcementSound.play();
 };
