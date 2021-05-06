@@ -24,8 +24,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
     damage() {
         this.health += -1
         if (this.health <= 0) {
-            this.setActive(false)
-            this.setVisible(false)
+            this.destroy()
         }
     }
 }

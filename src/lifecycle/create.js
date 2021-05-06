@@ -193,7 +193,7 @@ module.exports = function create() {
 
     this.physics.add.overlap(enemy, this.bullets, function(enemy, bullets){
         enemy.damage()
-        bullets.setActive(false);
-        bullets.setVisible(false);
+        enemy.setTint(0xfefefe) // not working :(
+        bullets.destroy()
     }, null, this)
 };
