@@ -7,6 +7,8 @@ import { QuantityBar } from 'phaser-ui-tools';
 
 module.exports = function create() {
 
+    this.sound.stopAll()
+
     // tilemap
     // tile layers must be ordered properly
     // eg background must come before megaman in the code, and foreground must come after
@@ -259,7 +261,6 @@ module.exports = function create() {
     //restart when softlocked
     this.input.keyboard.on('keydown-R', function (event) {
         this.scene.restart()
-        this.sound.stopAll()
     }, this)
 
     function updateTimer(){
