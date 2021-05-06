@@ -211,11 +211,6 @@ module.exports = function create() {
         enemyBullets.destroy()
     })
 
-    //restart when softlocked
-    this.input.keyboard.on('keydown-R', function (event) {
-        this.scene.restart()
-    }, this)
-
     //kill the enemy!!
     this.physics.add.overlap(enemy, this.bullets, function(enemy, bullets){
         enemy.damage()
@@ -234,16 +229,28 @@ module.exports = function create() {
     win.body.moves = false;
 
     //sounds for beginning and end
-    this.announcementSound = this.sound.add("announcement", { loop: false, volume: 1 })
-    this.announcementSound.play({volume:.7});
+    this.announcementSound = this.sound.add("announcement", { loop: false, volume: .8 })
+    this.announcementSound.play();
+    
+    let repeatFlag = true
+    if(repeatFlag) {
+        this.bgmSound = this.sound.add("bgm", { loop: true, volume: .4})
+        this.bgmSound.play()
+        repeatFlag = false;
+    }
 
-    this.winSound = this.sound.add("ending", { loop: false, volume: .7 })
+    this.winSound = this.sound.add("ending", { loop: false, volume:.2 })
     const self = this;
     this.physics.add.overlap(player, win, function(player) {
-        self.winSound.play({volume:.2});
+        self.winSound.play();
         alert("LEVEL 1 CLEAR\nThat's all for now\nThanks for playing!\n(Press 'R' to restart)")
         win.destroy()
     })
 
-    
+    //restart when softlocked
+    this.input.keyboard.on('keydown-R', function (event) {
+        this.scene.restart()
+        this.sound.stopAll()
+    }, this)
+
 };
