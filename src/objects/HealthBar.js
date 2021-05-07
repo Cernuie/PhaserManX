@@ -38,13 +38,16 @@ export default class HealthBar {
       this.bar.fillRect(this.x, this.y, 16, 80);
 
       //  Health
-
       this.bar.fillStyle(0xffffff);
       this.bar.fillRect(this.x + 2, this.y + 2, 12, 76);
 
-      if (this.value < 30)
+      //low health color change
+      if (this.value <= 30)
       {
           this.bar.fillStyle(0xff0000);
+      }
+      else if (this.value < 50) {
+          this.bar.fillStyle(0xeedd00)
       }
       else
       {
@@ -53,7 +56,7 @@ export default class HealthBar {
 
       var d = Math.floor(this.p * this.value);
 
-      this.bar.fillRect(this.x + 2, this.y + 2, 12, d);
+      this.bar.fillRect(this.x + 2, this.y + 2 + (76 - d), 12, d);
   }
 
 }

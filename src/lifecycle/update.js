@@ -99,7 +99,6 @@ module.exports = function update(time, delta) {
     }
 
     if (Phaser.Input.Keyboard.JustDown(this.keys.fire)) {
-        console.log(this.timeElapsed)
       player.shoot(player.flipX);
     }
 

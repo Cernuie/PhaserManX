@@ -7,13 +7,10 @@ import { QuantityBar } from 'phaser-ui-tools';
 
 module.exports = function create() {
 
+    // resets currently playing sounds when reloading the scene
     this.sound.stopAll()
 
-    // tilemap
-    // tile layers must be ordered properly
-    // eg background must come before megaman in the code, and foreground must come after
-    var map = this.make.tilemap({ key: 'demolvl' }); // calls from tilemap JSON
-    var tileset = map.addTilesetImage('mtrd', 'tiles'); // connects Tiled tileset to image source
+    //---------------------------ANIMATION--------------------------//
 
     // creates various animations for megaman
     this.anims.create({
@@ -122,6 +119,8 @@ module.exports = function create() {
         repeat: -1
     });
 
+    //---------------------------------KEY NAMES------------------------------//
+
     this.keys = {
         jump: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP),
         jump2: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X),
@@ -132,11 +131,19 @@ module.exports = function create() {
         down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
     };
 
+    //------------------------------LEVEL------------------------------------//
+
+    // tilemap
+    // graphics layer in the order they're added by default
+    // eg background must come before megaman in the code, and foreground must come after
+    var map = this.make.tilemap({ key: 'demolvl' }); // calls from tilemap JSON
+    var tileset = map.addTilesetImage('mtrd', 'tiles'); // connects Tiled tileset to image source
+
     // background layer ***MUST COME BEFORE LEVEL ENTITIES
-    map.createStaticLayer(0, tileset); 
+    map.createLayer(0, tileset); 
 
     // scale test for camera
-    let megaMan = this.add.megaMan(100, 100, "megaman"); 
+    let megaMan = this.add.megaMan(100, 600, "megaman"); 
     megaMan.displayWidth = cameraWidth * .1; //determines player's relative size
     megaMan.scaleY = megaMan.scaleX;
     megaMan.play('idle');
@@ -152,28 +159,27 @@ module.exports = function create() {
     enemy.scaleY = enemy.scaleX;
     world.enemies.push(this.physics.add.existing(enemy));
 
+    this.bullets = new Bullets(this);
+    this.enemyBullets = new Bullets(this);
+
     // collision layer
-    var platforms = map.createStaticLayer(1, tileset); // param1: layerID; param2: tileset source
-    platforms.setCollisionBetween(1,999,true); //enables collision with tiles ID 1-999
+    var platforms = map.createLayer(1, tileset); // param1: layerID; param2: tileset source
+    platforms.setCollisionBetween(1,999,true); //enables collision with tiles ID 1-999 in this layer
     this.physics.add.collider(player, platforms); //enable collsion between tiles and player
     this.physics.add.collider(enemy, platforms); //enable collsion between tiles and player
 
     // foreground layer
-    map.createStaticLayer(2, tileset);
+    map.createLayer(2, tileset);
 
     // camera settings
     this.cameras.main.setBounds(0, 0, width, height - 80); //set bounds to the size of the game map
     this.cameras.main.startFollow(player, true, 0.055, 0.1); //camera follows player
     //this.cameras.main.setZoom(1.5);
 
-    // set walls
+    // set level bounds
     this.physics.world.setBounds(0, 0, width, height);
 
-    // Game over screen
-    this.gameOverScreen = this.add.rectangle(0, 0, width, height*2, 0xffffff, 1);
-    this.gameOverScreen.scrollFactorX = 0;
-    this.gameOverScreen.scrollFactorY = 0;
-    this.gameOverScreen.alpha = 0;
+    //-----------------------------------KEYBOARD EVENTS---------------------------------//
 
     //airdash event attempt - needs to have set length and immune to gravity (or velocity.y = 0?) for the duration
     this.input.keyboard.on('keydown-C', function (event) {
@@ -194,8 +200,12 @@ module.exports = function create() {
         }
     });
 
-    this.bullets = new Bullets(this);
-    this.enemyBullets = new Bullets(this);
+    //restart key
+    this.input.keyboard.on('keydown-R', function (event) {
+        this.scene.restart()
+    }, this)
+
+    //------------------------------OBJECT INTERACTIONS---------------------------------//
 
     //enemy bullets die when hitting player
     this.physics.add.overlap(player, this.enemyBullets, function(player, enemyBullets) {
@@ -224,11 +234,33 @@ module.exports = function create() {
     player.hp.bar.setScrollFactor(0,0)
     player.hp.bar.setDepth(1)
 
-    //victory screen
+    // Game over screen
+    this.gameOverScreen = this.add.rectangle(0, 0, width, height*2, 0xffffff, 1);
+    this.gameOverScreen.scrollFactorX = 0;
+    this.gameOverScreen.scrollFactorY = 0;
+    this.gameOverScreen.alpha = 0;
+
+    //victory trigger
     var win = this.add.zone(3725, 760).setSize(100, 200);
     this.physics.world.enable(win, 0); // (0) DYNAMIC (1) STATIC
     win.body.setAllowGravity(false);
     win.body.moves = false;
+
+    // self.gameTimer = this.time.events.loop(100, function(){
+	// 	updateTimer();
+	// });
+    this.time.addEvent({ callback: updateTimer, loop: true, delay: 10})
+
+    //victory alert
+    this.physics.add.overlap(player, win, function(player) {
+        self.winSound.play();
+        alert(`LEVEL 1 CLEARED IN ${self.timeElapsedFormatted}\nThat's all for now\nThanks for playing!\n(Press 'R' to restart)`)
+        win.destroy()
+    })
+
+    //-----------------------------------SOUNDS-----------------------------------//
+
+    this.winSound = this.sound.add("ending", { loop: false, volume:.2 })
 
     //sounds for beginning and end
     this.announcementSound = this.sound.add("announcement", { loop: false, volume: .8 })
@@ -239,33 +271,19 @@ module.exports = function create() {
         this.bgmSound = this.sound.add("bgm", { loop: true, volume: .4})
         this.bgmSound.play()
         repeatFlag = false;
-    }
+    };
 
-    this.winSound = this.sound.add("ending", { loop: false, volume:.2 })
+    //--------------------------------------TIMER--------------------------------------//
+
     const self = this;
     self.startTime = new Date();
 	self.totalTime = 120;
 	self.timeElapsed = 0;
-    self.timeElapsedFormatted = '00:00';
-
-	// self.gameTimer = this.time.events.loop(100, function(){
-	// 	updateTimer();
-	// });
-    this.time.addEvent({ callback: updateTimer, loop: true, delay: 100})
-    this.physics.add.overlap(player, win, function(player) {
-        self.winSound.play();
-        alert(`LEVEL 1 CLEARED IN ${self.timeElapsedFormatted}\nThat's all for now\nThanks for playing!\n(Press 'R' to restart)`)
-        win.destroy()
-    })
-
-    //restart when softlocked
-    this.input.keyboard.on('keydown-R', function (event) {
-        this.scene.restart()
-    }, this)
+    self.timeElapsedFormatted = "";
 
     function updateTimer(){
         var currentTime = new Date();
-        var timeDifference = self.startTime.getTime() - currentTime.getTime();
+        var timeDifference = currentTime.getTime() - self.startTime.getTime();
 
         //Time elapsed in seconds
         self.timeElapsed = Math.abs(timeDifference / 1000);
@@ -276,14 +294,25 @@ module.exports = function create() {
         //Convert seconds into minutes and seconds
         var minutes = Math.floor(self.timeElapsed / 60);
         var seconds = Math.floor(self.timeElapsed) - (60 * minutes);
+        var ms = Math.floor(timeDifference) % 1000
 
         //Display minutes, add a 0 to the start if less than 10
-        var result = (minutes < 10) ? "0" + minutes : minutes; 
+        var displayMinutes = (minutes < 10) ? "0" + minutes : minutes; 
 
         //Display seconds, add a 0 to the start if less than 10
-        result += (seconds < 10) ? ":0" + seconds : ":" + seconds; 
+        var displaySeconds = (seconds < 10) ? ":0" + seconds : ":" + seconds; 
 
-        self.timeElapsedFormatted = result;
+        //Display centiseconds
+        var displayCenti
+        if (ms < 10) {
+            displayCenti = ".00" + ms
+        } else if (ms < 100) {
+            displayCenti = ".0" + ms
+        } else {
+            displayCenti = "." + ms
+        }
+
+        self.timeElapsedFormatted = displayMinutes + displaySeconds + displayCenti;
     }
     
 };
