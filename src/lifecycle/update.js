@@ -12,6 +12,9 @@ module.exports = function update(time, delta) {
     //order matters here, if isUp is after isDown it doesn't work
     if (player.y > 900) player.alive = false;
     if (!player.alive){
+        player.body.velocity.x = 0
+        player.body.velocity.y = 0
+        player.body.allowGravity = false
         if (player.IsDyingTimer >= 200) {
             this.scene.restart()
         }
@@ -92,10 +95,6 @@ module.exports = function update(time, delta) {
     }
     else {
         player.JumpTimer = 0;
-    }
-
-    if (this.keys.jump.isDown) {
-      
     }
 
     if (Phaser.Input.Keyboard.JustDown(this.keys.fire)) {
